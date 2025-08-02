@@ -199,15 +199,13 @@ Follow the steps below to start off.
 ## Local Development Setup
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/kate-yk/98-web_gyco.git
-   cd 98-web_gyco
+   git clone https://github.com/kate-yk/kate-yk.github.io.git
+   cd kate-yk.github.io.git
    ```
 
-2. **Set up virtual environment**
+2. **Set up virtual environment (follow the instructions)**
    ```bash
    ./on_venv.sh
-   source ../venv/bin/activate
-   pip install setuptools
    ```
 
 3. **Run the development server**
