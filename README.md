@@ -69,31 +69,17 @@ Follow the steps below to start off.
 # Documentations
 
 
+
+
+
+
+
 <br /><br /><br />
-
-
-
-
 # References
-
 ---
 
 ## Website Reference
 The project is deployed using **GitHub Pages** for high availability and accessibility. The interactive data story is publicly accessible via the following URL, **[Project Website](https://kate-yk.github.io/gyco/index.html)**.
 
-
-
-
-
-
-
 ## Original Website Reference
 The project is a derived work from existing website, to replace old legacy and apply new technology. The parent website is publicly and offically accessible via the following URL, **[Original Website](https://gyco-opus.org/)**.
-
-
-
-
-
-
-
-
