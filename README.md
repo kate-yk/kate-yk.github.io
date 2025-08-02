@@ -29,6 +29,9 @@
 <!-- Anchor Tag (Object) for "back to top" -->
 <a id="readme-top"></a>
 
+
+
+
 ---
 # kate-yk.github.io
 Kate's Website
@@ -48,22 +51,17 @@ Follow the steps below to start off.
 
 
 
-<br /><br /><br />
-
-
-
 
 
 <br /><br /><br />
+
 ---
+
 ## Table of Contents
 - [kate-yk.github.io](#kate-ykgithubio)
   - [Instructions](#instructions)
-  - [](#)
   - [Table of Contents](#table-of-contents)
-  - [](#-1)
 - [Documentations](#documentations)
-  - [](#-2)
 - [References](#references)
   - [Website Reference](#website-reference)
   - [Original Website Reference](#original-website-reference)
@@ -72,7 +70,9 @@ Follow the steps below to start off.
 
 
 <br /><br /><br />
+
 ---
+
 # Documentations
 
 
@@ -80,7 +80,9 @@ Follow the steps below to start off.
 
 
 <br /><br /><br />
+
 ---
+
 # References
 
 ## Website Reference
