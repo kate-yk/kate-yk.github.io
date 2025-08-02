@@ -55,10 +55,6 @@ Follow the steps below to start off.
 
 
 
-<br /><br /><br />
-
----
-
 ## Table of Contents
 - [kate-yk.github.io](#kate-ykgithubio)
   - [Instructions](#instructions)
