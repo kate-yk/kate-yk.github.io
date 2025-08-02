@@ -57,7 +57,9 @@ Follow the steps below to start off.
 - [kate-yk.github.io](#kate-ykgithubio)
   - [Instructions](#instructions)
   - [Table of Contents](#table-of-contents)
+  - [](#)
 - [Documentations](#documentations)
+  - [](#-1)
 - [References](#references)
   - [Website Reference](#website-reference)
   - [Original Website Reference](#original-website-reference)
@@ -66,16 +68,16 @@ Follow the steps below to start off.
 
 
 <br /><br /><br />
-# Documentations
 ---
+# Documentations
 
 
 
 
 
 <br /><br /><br />
-# References
 ---
+# References
 
 ## Website Reference
 The project is deployed using **GitHub Pages** for high availability and accessibility. The interactive data story is publicly accessible via the following URL, **[Project Website](https://kate-yk.github.io/gyco/index.html)**.
