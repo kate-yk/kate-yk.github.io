@@ -57,24 +57,22 @@ Follow the steps below to start off.
 - [kate-yk.github.io](#kate-ykgithubio)
   - [Instructions](#instructions)
   - [Table of Contents](#table-of-contents)
-  - [Original Website Reference](#original-website-reference)
+- [Documentations](#documentations)
+- [References](#references)
   - [Website Reference](#website-reference)
-  - [Documentation](#documentation)
+  - [Original Website Reference](#original-website-reference)
 
 
+
+---
+
+# Documentations
 
 
 <br /><br /><br />
 
+# References
 
-
-
-
-
-
-
-## Original Website Reference
-The project is a derived work from existing website, to replace old legacy and apply new technology. The parent website is publicly and offically accessible via the following URL, **[Project Website](https://gyco-opus.org/)**.
 
 ## Website Reference
 The project is deployed using **GitHub Pages** for high availability and accessibility. The interactive data story is publicly accessible via the following URL, **[Project Website](https://kate-yk.github.io/gyco/index.html)**.
@@ -85,9 +83,13 @@ The project is deployed using **GitHub Pages** for high availability and accessi
 
 
 
----
+## Original Website Reference
+The project is a derived work from existing website, to replace old legacy and apply new technology. The parent website is publicly and offically accessible via the following URL, **[Project Website](https://gyco-opus.org/)**.
 
-## Documentation
+
+
+
+
 
 
 
