@@ -50,11 +50,6 @@ Follow the steps below to start off.
 **Note**: when you type-in, you can `tap` so the bash can automatically generate your space (folder) name.
 
 
-
-
-
-
-
 ## Table of Contents
 - [kate-yk.github.io](#kate-ykgithubio)
   - [Instructions](#instructions)
