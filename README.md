@@ -57,9 +57,9 @@ Follow the steps below to start off.
   - [Instructions](#instructions)
   - [Table of Contents](#table-of-contents)
 - [Features](#features)
-  - [🎵 Core Sections](#-core-sections)
-  - [🎨 Design Features](#-design-features)
-  - [📱 Technical Features](#-technical-features)
+  - [Core Sections](#core-sections)
+  - [Design Features](#design-features)
+  - [Technical Features](#technical-features)
 - [Technology Stack](#technology-stack)
   - [Frontend Technologies](#frontend-technologies)
   - [Development Tools](#development-tools)
@@ -104,7 +104,7 @@ Follow the steps below to start off.
 
 # Features
 
-## 🎵 Core Sections
+## Core Sections
 - **Orchestra (GYCO)** - Youth orchestra programs, ensemble groups, and performances
 - **Volunteer** - Community outreach programs and mentorship opportunities
 - **Articles** - Math and Medical articles related to music education
@@ -112,14 +112,14 @@ Follow the steps below to start off.
 - **Publish** - Publication platform for research and creative works
 - **Contact** - Contact information and communication channels
 
-## 🎨 Design Features
+## Design Features
 - **Responsive Design** - Fully responsive using Bootstrap 5
 - **Modern UI** - Professional gradient backgrounds and hover effects
 - **Mobile-First** - Optimized for all device sizes
 - **Accessibility** - WCAG compliant design elements
 - **Performance** - Fast loading with optimized assets
 
-## 📱 Technical Features
+## Technical Features
 - **Bootstrap 5.3.0** - Latest responsive framework
 - **Font Awesome Icons** - Professional iconography
 - **CSS Custom Properties** - Maintainable styling
