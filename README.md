@@ -71,8 +71,12 @@ Follow the steps below to start off.
 
 <br /><br /><br />
 
+
+
+
 # References
 
+---
 
 ## Website Reference
 The project is deployed using **GitHub Pages** for high availability and accessibility. The interactive data story is publicly accessible via the following URL, **[Project Website](https://kate-yk.github.io/gyco/index.html)**.
