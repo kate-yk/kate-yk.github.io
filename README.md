@@ -214,8 +214,8 @@ Follow the steps below to start off.
    ```
 
 4. **Access the website**
-   - Admin Hub: `http://localhost:5000/static/index.html`
-   - GYCO Website: `http://localhost:5000/static/gyco/index.html`
+   - Admin Hub: `http://localhost:5000/index.html`
+   - GYCO Website: `http://localhost:5000/gyco/index.html`
 
 ## Development Features
 - **Auto-refresh** - Development environment includes smart refresh functionality
@@ -225,8 +225,8 @@ Follow the steps below to start off.
 
 ## Deployment
 The project is configured for deployment on **GitHub Pages** with the following structure:
-- Main navigation: `https://kate-yk.github.io/static/index.html`
-- GYCO website: `https://kate-yk.github.io/static/gyco/index.html`
+- Main navigation: `https://kate-yk.github.io/index.html`
+- GYCO website: `https://kate-yk.github.io/gyco/home.html`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
