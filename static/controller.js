@@ -1,5 +1,5 @@
 // Main Controller - Imports base functionality
-import { initializeBaseController } from './core-module.js';
+import { initializeBaseController } from '/core-module.js';
 
 // Initialize base functionality
 initializeBaseController();

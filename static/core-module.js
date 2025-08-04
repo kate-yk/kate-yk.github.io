@@ -38,8 +38,8 @@ async function loadFragment(selector, url) {
 
 export async function initializeBaseController() {
   // Inject common nav/footer
-  await loadFragment('#nav-placeholder', './includes/nav.html');
-  await loadFragment('#footer-placeholder', './includes/footer.html');
+  await loadFragment('#nav-placeholder', '/gyco/includes/nav.html');
+  await loadFragment('#footer-placeholder', '/gyco/includes/footer.html');
 
   // Then wire up your other behaviors
   setupWindowFocusRefresh();

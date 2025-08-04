@@ -183,7 +183,7 @@ Follow the steps below to start off.
 
 ## Key Files Description
 - **`static/index.html`** - Admin navigation hub for multiple projects
-- **`static/gyco/index.html`** - Complete GYCO institution website
+- **`static/gyco/public/index.html`** - Complete GYCO institution website
 - **`app.py`** - Flask server for local development
 - **`refreshpage.js`** - Auto-refresh functionality for development
 
@@ -215,7 +215,7 @@ Follow the steps below to start off.
 
 4. **Access the website**
    - Admin Hub: `http://localhost:5000/index.html`
-   - GYCO Website: `http://localhost:5000/gyco/index.html`
+   - GYCO Website: `http://localhost:5000/gyco/public/index.html`
 
 ## Development Features
 - **Auto-refresh** - Development environment includes smart refresh functionality
@@ -226,7 +226,7 @@ Follow the steps below to start off.
 ## Deployment
 The project is configured for deployment on **GitHub Pages** with the following structure:
 - Main navigation: `https://kate-yk.github.io/index.html`
-- GYCO website: `https://kate-yk.github.io/gyco/home.html`
+- GYCO website: `https://kate-yk.github.io/gyco/public/index.html`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -355,7 +355,7 @@ Planned improvements and additional features:
 # References
 
 ## Website Reference
-The project is deployed using **GitHub Pages** for high availability and accessibility. The interactive data story is publicly accessible via the following URL, **[Project Website](https://kate-yk.github.io/gyco/home.html)**.
+The project is deployed using **GitHub Pages** for high availability and accessibility. The interactive data story is publicly accessible via the following URL, **[Project Website](https://kate-yk.github.io/gyco/public/index.html)**.
 
 ## Original Website Reference
 The project is a derived work from existing website, to replace old legacy and apply new technology. The parent website is publicly and offically accessible via the following URL, **[Original Website](https://gyco-opus.org/)**.
