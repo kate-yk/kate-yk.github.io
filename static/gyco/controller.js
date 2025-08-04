@@ -2,7 +2,7 @@
 import { initializeBaseController } from '../core-module.js';
 
 // Initialize base functionality
-initializeBaseController();
+await initializeBaseController();
 
 /////////////////////////////////////////////
 // Add GYCO-specific functionality here
@@ -10,6 +10,11 @@ initializeBaseController();
 
 // Manual refresh with button
 (function() {
+    // Get CSS variable values from :root
+    const rootStyles = getComputedStyle(document.documentElement);
+    const primaryColor = rootStyles.getPropertyValue('--color-brand-dark').trim();
+    const hoverColor = rootStyles.getPropertyValue('--color-brand-accent').trim();
+
     // Create refresh button
     const refreshBtn = document.createElement('button');
     refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
@@ -17,7 +22,7 @@ initializeBaseController();
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background:rgb(60, 211, 0);
+        background: ${primaryColor};
         color: white;
         border: none;
         padding: 10px 15px;
@@ -31,12 +36,12 @@ initializeBaseController();
     
     refreshBtn.addEventListener('mouseenter', () => {
         refreshBtn.style.transform = 'scale(1.1)';
-        refreshBtn.style.background = '#2980b9';
+        refreshBtn.style.background = hoverColor;
     });
     
     refreshBtn.addEventListener('mouseleave', () => {
         refreshBtn.style.transform = 'scale(1)';
-        refreshBtn.style.background = '#3498db';
+        refreshBtn.style.background = primaryColor;
     });
     
     refreshBtn.addEventListener('click', () => {
@@ -50,7 +55,7 @@ initializeBaseController();
     
     document.body.appendChild(refreshBtn);
     
-    // Add keyboard shortcut (Ctrl+R or Cmd+R)
+    // Keyboard shortcut (Ctrl+R or Cmd+R)
     document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
             e.preventDefault();
@@ -58,6 +63,11 @@ initializeBaseController();
         }
     });
 })();
+
+
+
+
+
 
 // Social Media Link Handler - Community Standard Approach
 (function() {

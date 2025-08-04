@@ -16,8 +16,32 @@ export function setupYearElement() {
     }
 }
 
-// Initialize all base functionality
-export function initializeBaseController() {
-    setupWindowFocusRefresh();
-    setupYearElement();
-} 
+
+/**
+ * Fetches an HTML fragment and injects it into the page.
+ * @param {string} selector - CSS selector of container to fill.
+ * @param {string} url      - Path to the HTML fragment.
+ */
+async function loadFragment(selector, url) {
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`Failed to fetch ${url}: ${resp.status}`);
+    const html = await resp.text();
+    const container = document.querySelector(selector);
+    if (container) container.innerHTML = html;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+
+export async function initializeBaseController() {
+  // Inject common nav/footer
+  await loadFragment('#nav-placeholder', './includes/nav.html');
+  await loadFragment('#footer-placeholder', './includes/footer.html');
+
+  // Then wire up your other behaviors
+  setupWindowFocusRefresh();
+  setupYearElement();
+}

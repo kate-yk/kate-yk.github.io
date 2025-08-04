@@ -6,9 +6,13 @@ def index():
     return send_from_directory("static", "index.html")
 @app.route("/<path:filename>")
 def serve_file(filename):
-    return send_from_directory("static", filename)
+    return send_from_directory("static", filename) ## root path is 'static', 
 if __name__ == "__main__":
     app.run(port=8080)
+
+## Path specification
+# '/{path}' for absolute path from the root
+# './{path}' or '../{path}' for relative path from current directory of the file (pwd).
 
 
 ### Abstraction Level
