@@ -2,7 +2,7 @@
 import { initializeBaseController } from '../core-module.js';
 
 // Initialize base functionality
-await initializeBaseController();
+initializeBaseController();
 
 /////////////////////////////////////////////
 // Add GYCO-specific functionality here
@@ -10,11 +10,6 @@ await initializeBaseController();
 
 // Manual refresh with button
 (function() {
-    // Get CSS variable values from :root
-    const rootStyles = getComputedStyle(document.documentElement);
-    const primaryColor = rootStyles.getPropertyValue('--color-brand-dark').trim();
-    const hoverColor = rootStyles.getPropertyValue('--color-brand-accent').trim();
-
     // Create refresh button
     const refreshBtn = document.createElement('button');
     refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
@@ -22,7 +17,7 @@ await initializeBaseController();
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: ${primaryColor};
+        background:rgb(60, 211, 0);
         color: white;
         border: none;
         padding: 10px 15px;
@@ -36,12 +31,12 @@ await initializeBaseController();
     
     refreshBtn.addEventListener('mouseenter', () => {
         refreshBtn.style.transform = 'scale(1.1)';
-        refreshBtn.style.background = hoverColor;
+        refreshBtn.style.background = '#2980b9';
     });
     
     refreshBtn.addEventListener('mouseleave', () => {
         refreshBtn.style.transform = 'scale(1)';
-        refreshBtn.style.background = primaryColor;
+        refreshBtn.style.background = '#3498db';
     });
     
     refreshBtn.addEventListener('click', () => {
@@ -55,7 +50,7 @@ await initializeBaseController();
     
     document.body.appendChild(refreshBtn);
     
-    // Keyboard shortcut (Ctrl+R or Cmd+R)
+    // Add keyboard shortcut (Ctrl+R or Cmd+R)
     document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
             e.preventDefault();
@@ -63,11 +58,6 @@ await initializeBaseController();
         }
     });
 })();
-
-
-
-
-
 
 // Social Media Link Handler - Community Standard Approach
 (function() {
