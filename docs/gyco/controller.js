@@ -17,7 +17,7 @@ initializeBaseController();
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: #3498db;
+        background:rgb(60, 211, 0);
         color: white;
         border: none;
         padding: 10px 15px;
@@ -122,7 +122,7 @@ initializeBaseController();
         
         notification.innerHTML = `
             <div style="display: flex; align-items: center; gap: 10px;">
-                <i class="fas fa-info-circle" style="color: #3498db;"></i>
+                <i class="fas fa-info-circle" style="color:rgb(219, 85, 52);"></i>
                 <div>
                     <strong>${platform}</strong><br>
                     <small>${message}</small>

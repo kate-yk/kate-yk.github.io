@@ -8,15 +8,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-bg: #ecf0f1;
-            --dark-text: #2c3e50;
+            --primary-color: #2d3142;
+            --secondary-color: #6e6e6e;
+            --accent-color: #85ef54;
+            --light-bg: #f7f7ff;
+            --dark-text: #22223b;
+            --white: #ffffff;
+            --gray-light: #e0e1dd;
+            --gray-medium: #bfc0c0;
+            --gray-dark: #4f5d75;
+            --warm-beige: #12920e;
+            --warm-brown: #1fb386;
+            --terracotta: #1cb943;
+            --cream: #fefefe;
+            --sand: #fef3c7;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Georgia, 'Times New Roman', serif;
             line-height: 1.6;
             color: var(--dark-text);
         }
@@ -24,94 +33,209 @@
         .navbar-brand {
             font-weight: bold;
             font-size: 1.5rem;
+            color: var(--warm-beige) !important;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-link {
+            color: var(--white) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--warm-beige) !important;
         }
 
         .hero-section {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 8% 0;
+            color: var(--white);
+            padding: 10% 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23fbbf24" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
         }
 
         .section-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
             height: 100%;
-            border: none;
+            border: 1px solid var(--gray-light);
+            overflow: hidden;
         }
 
         .section-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: var(--warm-beige);
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--warm-beige) 0%, var(--terracotta) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card:hover::before {
+            transform: scaleX(1);
         }
 
         .card-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            color: var(--warm-beige);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .section-title {
             color: var(--primary-color);
-            font-weight: bold;
-            margin-bottom: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--warm-beige) 0%, var(--terracotta) 100%);
         }
 
         .btn-custom {
-            background: var(--secondary-color);
+            background: linear-gradient(135deg, var(--warm-beige) 0%, var(--terracotta) 100%);
             border: none;
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 25px;
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
             transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px var(--cream);
         }
 
         .btn-custom:hover {
-            background: var(--primary-color);
-            transform: translateY(-2px);
-            color: white;
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--warm-beige) 100%);
+            transform: translateY(-3px);
+            color: var(--white);
+            box-shadow: 0 8px 25px var(--warm-brown);
         }
 
         .footer {
-            background: var(--primary-color);
-            color: white;
-            padding: 3% 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 4% 0;
             margin-top: 5%;
         }
 
         .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: color 0.3s ease;
+            color: var(--white);
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: all 0.3s ease;
             text-decoration: none;
+            display: inline-block;
         }
 
         .social-links a:hover {
-            color: var(--secondary-color);
+            color: var(--warm-beige);
+            transform: translateY(-3px);
         }
 
         .stats-section {
-            background: var(--light-bg);
-            padding: 5% 0;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray-light) 100%);
+            padding: 6% 0;
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--warm-beige) 50%, transparent 100%);
         }
 
         .stat-item {
             text-align: center;
-            padding: 2% 0;
+            padding: 3% 0;
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--warm-beige);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .stat-label {
-            color: var(--dark-text);
-            font-weight: 500;
+            color: var(--gray-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray-light) 100%);
+        }
+
+        .contact-icon {
+            color: var(--warm-beige);
+        }
+
+        .footer-heading {
+            color: var(--warm-beige);
+        }
+
+        .footer-divider {
+            border-color: var(--warm-beige);
         }
 
         @media (max-width: 768px) {
@@ -124,24 +248,51 @@
             }
             
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
             }
         }
 
         @media (max-width: 576px) {
             .hero-section h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .hero-section p {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
+
+            .btn-custom {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Elegant scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--warm-beige);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--terracotta);
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-color);">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <i class="fas fa-music me-2"></i>GYCO
@@ -174,28 +325,6 @@
         </div>
     </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
@@ -394,7 +523,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5" style="background-color: var(--light-bg);">
+    <section id="contact" class="py-5 contact-section">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -405,19 +534,19 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <h5><i class="fas fa-envelope me-2"></i>Email</h5>
+                                    <h5><i class="fas fa-envelope me-2 contact-icon"></i>Email</h5>
                                     <p>info@gyco.org</p>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <h5><i class="fas fa-phone me-2"></i>Phone</h5>
+                                    <h5><i class="fas fa-phone me-2 contact-icon"></i>Phone</h5>
                                     <p>+1 (555) 123-4567</p>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <h5><i class="fas fa-map-marker-alt me-2"></i>Address</h5>
+                                    <h5><i class="fas fa-map-marker-alt me-2 contact-icon"></i>Address</h5>
                                     <p>123 Music Street<br>Harmony City, HC 12345</p>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <h5><i class="fas fa-clock me-2"></i>Hours</h5>
+                                    <h5><i class="fas fa-clock me-2 contact-icon"></i>Hours</h5>
                                     <p>Mon-Fri: 9:00 AM - 6:00 PM<br>Sat: 10:00 AM - 4:00 PM</p>
                                 </div>
                             </div>
@@ -431,39 +560,19 @@
         </div>
     </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <h5>Greater Youth Collaborative Opus</h5>
+                    <h5 class="footer-heading">Greater Youth Collaborative Opus</h5>
                     <p>
                         Empowering youth through music, education, and 
                         collaborative innovation since 2020.
                     </p>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <h5>Quick Links</h5>
+                    <h5 class="footer-heading">Quick Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="#orchestra" class="text-white text-decoration-none">Orchestra</a></li>
                         <li><a href="#volunteer" class="text-white text-decoration-none">Volunteer</a></li>
@@ -472,7 +581,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <h5>Follow Us</h5>
+                    <h5 class="footer-heading">Follow Us</h5>
                     <div class="social-links">
                         <a href="#" id="facebook-link" 
                            target="_blank" rel="noopener noreferrer" 
@@ -497,7 +606,7 @@
                     </div>
                 </div>
             </div>
-            <hr class="my-4">
+            <hr class="my-4 footer-divider">
             <div class="row">
                 <div class="col-12 text-center">
                     <p>
