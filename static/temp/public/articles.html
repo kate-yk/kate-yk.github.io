@@ -4,44 +4,73 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GYCO — Articles</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">   <!-- Normalize browser defaults -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">    <!-- Bootstrap core -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">  <!-- Font Awesome icons -->
 
-  <link rel="stylesheet" href="/temp/styles/new.css" />
+  <!-- Frameworks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
-
-  <!-- <style>
+  <!-- Minimal, focused CSS -->
+  <style>
     :root {
-      --accent: #0d6efd; /* default; include.js will override --bs-primary too */
-    }
-    /* Sync bootstrap's primary usage if include.js didn't run yet */
-    :root {
+      --accent: #0d6efd;
       --bs-primary: var(--accent);
+      --bs-primary-rgb: 13, 110, 253;
     }
-    .fab { position: fixed; right:1.25rem; bottom:1.25rem; z-index:1050; width:56px; height:56px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.08); background:var(--accent); color:#fff; border:none; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.06); }
-    .card-img-top { object-fit:cover; height:160px; }
-    .tag-chip { display:inline-block; margin-right:.35rem; margin-bottom:.25rem; padding:.25rem .5rem; border-radius:.35rem; background:#f1f3f5; font-size:.85rem; color:#333; }
-    .focus-outline:focus { outline: 3px solid rgba(13,110,253,0.18); outline-offset:2px; }
-  </style> -->
+    .focus-outline:focus-visible { outline: none; box-shadow: 0 0 0 .25rem rgba(var(--bs-primary-rgb), .18); border-color: var(--bs-primary); border-radius: .25rem; }
+    .card-hover { transition: transform .18s ease, box-shadow .18s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,.06); }
+    .img-cover { width:100%; height:100%; object-fit:cover; display:block; }
+    .tag-chip { margin: .25rem .35rem .15rem 0; padding: .25rem .6rem; border-radius: .35rem; font-size:.85rem; }
+    /* messages */
+    .empty-state { min-height:140px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:.5rem; color:#6c757d; }
+    .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+  </style>
 </head>
-<body>
+<body class="bg-white text-body">
 
-  <!-- shared header injected here -->
-  <div data-include="/temp/public/header"></div>
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" aria-label="Main navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/temp/public/index.html" aria-label="GYCO home">
+        <img src="https://via.placeholder.com/36" alt="" class="rounded" width="36" height="36">
+        <span class="fw-bold">GYCO</span>
+      </a>
 
-  <!-- MAIN: Search belongs here (not in nav) + sidebar + feed -->
+      <button class="navbar-toggler focus-outline" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="/temp/public/index.html" aria-current="page">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/temp/public/articles.html">Articles</a></li>
+          <li class="nav-item dropdown">
+            <button class="btn btn-light dropdown-toggle ms-2 focus-outline" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+              <i class="fa-solid fa-user" aria-hidden="true"></i><span class="visually-hidden"> User menu</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuBtn">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">My Articles</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
   <main class="container my-4" role="main">
-    <!-- Search row (centered) -->
+    <!-- Search -->
     <div class="row mb-4">
       <div class="col-12 col-lg-8 mx-auto">
-        <form id="searchForm" role="search" aria-label="Search articles">
-          <div class="input-group">
-            <span class="input-group-text" id="search-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
-            <input id="searchInput" class="form-control" type="search" placeholder="Search articles..." aria-label="Search articles" />
-            <button class="btn btn-outline-secondary" type="submit" aria-label="Search">Search</button>
-          </div>
+        <form id="searchForm" role="search" aria-label="Search articles" class="input-group">
+          <span class="input-group-text" id="search-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
+          <input id="searchInput" class="form-control" type="search" placeholder="Search articles..." aria-label="Search articles" />
+          <button class="btn btn-outline-secondary" type="submit" aria-label="Search">Search</button>
+          <button id="clearBtn" class="btn btn-outline-danger" type="button" title="Clear filters">Clear</button>
         </form>
       </div>
     </div>
@@ -52,83 +81,52 @@
         <div class="sticky-top" style="top:1rem;">
           <section class="mb-4" aria-labelledby="trendingHeading">
             <h6 id="trendingHeading" class="text-uppercase small text-muted">Trending</h6>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled mb-0">
               <li><a href="#" class="d-block text-decoration-none py-1">How to present research in 5 minutes</a></li>
             </ul>
           </section>
 
           <section class="mb-4" aria-labelledby="categoriesHeading">
             <h6 id="categoriesHeading" class="text-uppercase small text-muted">Categories</h6>
-            <div class="list-group">
-              <button class="list-group-item list-group-item-action active" aria-pressed="true" data-filter="all">All</button>
-              <button class="list-group-item list-group-item-action" data-filter="tech">Tech</button>
-              <button class="list-group-item list-group-item-action" data-filter="education">Education</button>
-              <button class="list-group-item list-group-item-action" data-filter="health">Health</button>
+            <div id="categoriesList" class="list-group" role="tablist" aria-label="Article categories">
+              <!-- categories generated here -->
             </div>
           </section>
 
           <section aria-labelledby="tagsHeading" class="mb-4">
             <h6 id="tagsHeading" class="text-uppercase small text-muted">Tags</h6>
-            <div>
-              <button class="btn btn-sm btn-light tag-chip" data-tag="research">research</button>
-              <button class="btn btn-sm btn-light tag-chip" data-tag="community">community</button>
-              <button class="btn btn-sm btn-light tag-chip" data-tag="design">design</button>
+            <div id="tagsList" class="d-flex flex-wrap" aria-label="Article tags" role="toolbar" aria-atomic="true">
+              <!-- tags generated here -->
             </div>
+            <div class="small text-muted mt-2">Select multiple tags to narrow (articles must include <strong>all</strong> chosen tags).</div>
           </section>
         </div>
       </aside>
 
-      <!-- Article feed -->
+      <!-- Feed -->
       <section class="col-12 col-md-8 col-lg-9 order-1 order-md-2" aria-labelledby="feedHeading">
         <h2 id="feedHeading" class="visually-hidden">Article feed</h2>
 
         <!-- Grid -->
-        <div id="articlesGrid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" aria-live="polite">
-          <article class="col" data-id="1" data-category="tech" data-tags="research,design">
-            <div class="card h-100 card-hover focus-outline">
-              <img src="https://picsum.photos/seed/1/640/360" class="card-img-top" alt="Rapid Prototyping Thumbnail">
-              <div class="card-body d-flex flex-column">
-                <h3 class="card-title h6 mb-2">Rapid Prototyping for Youth Projects</h3>
-                <p class="card-text text-muted small mb-2">How to iterate on ideas with minimal resources.</p>
-                <div class="mt-auto d-flex justify-content-between align-items-center">
-                  <div class="small text-muted">By Alex • Jul 30, 2025</div>
-                  <div><a class="btn btn-sm btn-outline-primary" href="/temp/public/article.html?id=1">Read</a></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="col" data-id="2" data-category="education" data-tags="community,career">
-            <div class="card h-100 card-hover focus-outline">
-              <img src="https://picsum.photos/seed/2/640/360" class="card-img-top" alt="Coding Bootcamp Thumbnail">
-              <div class="card-body d-flex flex-column">
-                <h3 class="card-title h6 mb-2">Community Coding Bootcamp Recap</h3>
-                <p class="card-text text-muted small mb-2">Highlights and student projects from our latest cohort.</p>
-                <div class="mt-auto d-flex justify-content-between align-items-center">
-                  <div class="small text-muted">By Maya • Jul 25, 2025</div>
-                  <div><a class="btn btn-sm btn-outline-primary" href="/temp/public/article.html?id=2">Read</a></div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="col" data-id="3" data-category="health" data-tags="wellness">
-            <div class="card h-100 card-hover focus-outline">
-              <img src="https://picsum.photos/seed/3/640/360" class="card-img-top" alt="Mindfulness Thumbnail">
-              <div class="card-body d-flex flex-column">
-                <h3 class="card-title h6 mb-2">Mindfulness for Student Stress</h3>
-                <p class="card-text text-muted small mb-2">Daily practices to reduce anxiety during exams.</p>
-                <div class="mt-auto d-flex justify-content-between align-items-center">
-                  <div class="small text-muted">By Dr. Kim • Jul 14, 2025</div>
-                  <div><a class="btn btn-sm btn-outline-primary" href="/temp/public/article.html?id=3">Read</a></div>
-                </div>
-              </div>
-            </div>
-          </article>
+        <div id="articlesGrid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" aria-live="polite" aria-atomic="true">
+          <!-- dynamic cards inserted here -->
         </div>
 
-        <!-- Pagination fallback -->
-        <nav aria-label="Article pagination" class="mt-4">
+        <!-- No results and empty state -->
+        <div id="noResults" class="no-results d-none mt-4">
+          <div class="alert alert-warning mb-0" role="status">No articles match your search / filters.</div>
+        </div>
+
+        <div id="noArticles" class="d-none mt-4">
+          <div class="empty-state">
+            <i class="fa-regular fa-folder-open fa-2x" aria-hidden="true"></i>
+            <div class="lead">No articles available.</div>
+            <div class="small text-muted">Check back later or add an article.</div>
+          </div>
+        </div>
+
+        <!-- Pagination (fallback) -->
+        <nav id="pagination" aria-label="Article pagination" class="mt-4 d-none">
           <ul class="pagination justify-content-center">
             <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Prev</a></li>
             <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -140,94 +138,385 @@
     </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="bg-white border-top">
+    <div class="container py-3 d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="small text-muted">© 2025 Greater Youth Collaborative Opus</div>
+      <nav aria-label="Footer">
+        <a class="text-decoration-none small me-3" href="/temp/public/index.html">About</a>
+        <a class="text-decoration-none small me-3" href="/temp/public/index.html">Contact</a>
+        <a class="text-decoration-none small" href="/temp/public/index.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
 
-  <!-- shared footer injected here -->
-  <div data-include="/temp/public/footer"></div>
+  <!-- Modal used by Add an Article (shared) -->
+  <div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="requestForm" class="modal-content needs-validation" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="requestModalLabel">Add an Article</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-  <!-- Floating Request button -->
-  <button id="openRequestBtn" class="fab" title="Request an article" aria-label="Request an article" data-bs-toggle="modal" data-bs-target="#requestModal">
-    <i class="fa-solid fa-plus" aria-hidden="true"></i>
-  </button>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="reqTitle" class="form-label">Article Title</label>
+            <input id="reqTitle" name="title" class="form-control" type="text" required maxlength="150" />
+            <div class="invalid-feedback">Please add a title (max 150 chars).</div>
+          </div>
 
+          <div class="mb-3">
+            <label for="reqDesc" class="form-label">Description</label>
+            <textarea id="reqDesc" name="description" class="form-control" rows="4" required></textarea>
+            <div class="invalid-feedback">Please add a description.</div>
+          </div>
 
+          <div class="mb-3">
+            <label for="reqTags" class="form-label">Tags</label>
+            <input id="reqTags" name="tags" class="form-control" placeholder="e.g. research, community" />
+            <div class="form-text">Separate tags with commas.</div>
+          </div>
 
+          <div class="mb-3">
+            <label for="reqImage" class="form-label">Upload Image (optional)</label>
+            <input id="reqImage" name="image" class="form-control" type="file" accept="image/*" />
+          </div>
+        </div>
 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button id="submitRequest" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-  
+  <!-- Toast for feedback -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080;">
+    <div id="submitToast" class="toast align-items-center text-white bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">Article submitted.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
 
   <!-- Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- small page script: filter + search + prefilter q= -->
+  <!-- Focused JS: single IIFE for loading, filtering, search, modal form + toast -->
   <script>
-    (function () {
-      // Filtering and searching
-      const grid = document.getElementById('articlesGrid');
-      const searchForm = document.getElementById('searchForm');
-      const searchInput = document.getElementById('searchInput');
-      const requestForm = null; // handled by footer-included modal (no need here)
+  (function () {
+    'use strict';
 
-      // Category buttons
-      document.addEventListener('click', function (e) {
-        const btn = e.target.closest('[data-filter]');
-        if (!btn) return;
-        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filterArticles({ category: btn.getAttribute('data-filter') });
+    const DATA_INDEX = '/temp/data/articles.json'; // expected to be an array of article JSON paths
+    const qs = sel => document.querySelector(sel);
+    const qsa = sel => Array.from(document.querySelectorAll(sel));
+
+    const grid = qs('#articlesGrid');
+    const categoriesList = qs('#categoriesList');
+    const tagsList = qs('#tagsList');
+    const searchForm = qs('#searchForm');
+    const searchInput = qs('#searchInput');
+    const clearBtn = qs('#clearBtn');
+    const noResults = qs('#noResults');
+    const noArticles = qs('#noArticles');
+    const toastEl = qs('#submitToast');
+    const toast = toastEl ? new bootstrap.Toast(toastEl, { autohide: true, delay: 2200 }) : null;
+    const form = qs('#requestForm');
+
+    // state
+    let ARTICLES = []; // loaded article objects
+    // category: single or 'all'; tags: array (multi-select); query: text
+    let FILTER = { category: 'all', tags: [], query: '' };
+
+    // render helpers
+    function cardHTML(a) {
+      const tags = (a.tags || []).map(t => `<span class="badge bg-light text-dark small me-1">${escapeHtml(t)}</span>`).join('');
+      return `
+      <article class="col" data-id="${escapeHtml(a.id)}" data-category="${escapeHtml(a.category || '')}" data-tags="${escapeAttr((a.tags||[]).join(','))}">
+        <div class="card h-100 card-hover focus-outline" tabindex="0">
+          <div class="ratio ratio-16x9">
+            <img src="${escapeAttr(a.image || '')}" alt="${escapeAttr(a.alt || '')}" class="img-cover" loading="lazy">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h3 class="card-title h6 mb-2">${escapeHtml(a.title)}</h3>
+            <p class="card-text text-muted small mb-2">${escapeHtml(a.description)}</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="small text-muted">By ${escapeHtml(a.author || '—')} • ${escapeHtml(a.date || '')}</div>
+              <div><a class="btn btn-sm btn-outline-primary" href="/temp/public/article.html?id=${encodeURIComponent(a.id)}">Read</a></div>
+            </div>
+            <div class="mt-2">${tags}</div>
+          </div>
+        </div>
+      </article>`;
+    }
+
+    // XSS-safe helpers (minimal)
+    function escapeHtml(s){ if(!s && s!==0) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;'); }
+
+    // apply filters to DOM items
+    function applyFilters() {
+      const items = qsa('#articlesGrid article');
+      let visibleCount = 0;
+      const q = (FILTER.query || '').toLowerCase();
+      items.forEach(el => {
+        let ok = true;
+        const cat = (el.dataset.category || '').toString().toLowerCase();
+        const tags = (el.dataset.tags || '').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+
+        // category filter (single)
+        if (FILTER.category && FILTER.category !== 'all') ok = ok && (cat === FILTER.category);
+
+        // tags filter: require article to include ALL selected tags (AND logic)
+        if (FILTER.tags && FILTER.tags.length > 0) {
+          ok = ok && FILTER.tags.every(t => tags.includes(t));
+        }
+
+        // search text (title or description)
+        if (q) {
+          const title = (el.querySelector('.card-title')?.textContent || '').toLowerCase();
+          const desc = (el.querySelector('.card-text')?.textContent || '').toLowerCase();
+          ok = ok && (title.includes(q) || desc.includes(q));
+        }
+
+        el.style.display = ok ? '' : 'none';
+        if (ok) visibleCount++;
       });
 
-      // Tag chips
-      document.addEventListener('click', function (e) {
-        const tagBtn = e.target.closest('[data-tag]');
-        if (!tagBtn) return;
-        filterArticles({ tag: tagBtn.getAttribute('data-tag') });
-      });
+      // empty state handling
+      noResults.classList.toggle('d-none', visibleCount > 0 || ARTICLES.length === 0);
+      noArticles.classList.toggle('d-none', ARTICLES.length > 0);
 
-      // Search submit: filter client side
-      searchForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const q = (searchInput.value || '').trim();
-        filterArticles({ query: q.toLowerCase() });
-        // update URL without reload
-        const url = new URL(location.href);
-        if (q) url.searchParams.set('q', q);
-        else url.searchParams.delete('q');
-        history.replaceState(null, '', url);
-      });
+      // announce count and active filters for a11y
+      const tagSummary = FILTER.tags.length ? ` Tags: ${FILTER.tags.join(', ')}.` : '';
+      announce(`${visibleCount} article${visibleCount === 1 ? '' : 's'} shown.${tagSummary}`);
+    }
 
-      function filterArticles({ category, tag, query } = {}) {
-        const cards = grid.querySelectorAll('article');
-        cards.forEach(card => {
-          let show = true;
-          if (category && category !== 'all') show = card.getAttribute('data-category') === category;
-          if (tag) {
-            const tags = (card.getAttribute('data-tags') || '').split(',').map(s => s.trim());
-            show = show && tags.includes(tag);
-          }
-          if (query) {
-            const title = (card.querySelector('.card-title').textContent || '').toLowerCase();
-            const desc = (card.querySelector('.card-text').textContent || '').toLowerCase();
-            show = show && (title.includes(query) || desc.includes(query));
-          }
-          card.style.display = show ? '' : 'none';
-        });
+    // generate categories and tags from loaded ARTICLES
+    function populateFilters() {
+      const cats = new Set();
+      const tags = new Set();
+      ARTICLES.forEach(a => { if (a.category) cats.add(a.category); (a.tags||[]).forEach(t => tags.add(t)); });
+
+      // categories: "All" + sorted
+      const sortedCats = Array.from(cats).sort((a,b) => a.localeCompare(b));
+      const catButtons = ['all', ...sortedCats].map((c, idx) => {
+        const label = c === 'all' ? 'All' : capitalize(c);
+        const active = (c === 'all') ? ' active' : '';
+        return `<button class="list-group-item list-group-item-action${active}" data-filter="${escapeAttr(c)}" type="button" aria-pressed="${c==='all'}">${escapeHtml(label)}</button>`;
+      }).join('');
+      categoriesList.innerHTML = catButtons;
+
+      // tags: small toggle buttons sorted. these are multi-select toggles.
+      const sortedTags = Array.from(tags).sort((a,b) => a.localeCompare(b));
+      tagsList.innerHTML = sortedTags.map(t => 
+        `<button class="btn btn-sm btn-outline-secondary tag-chip" data-tag="${escapeAttr(t)}" type="button" aria-pressed="false">${escapeHtml(t)}</button>`
+      ).join('');
+
+      // ensure 'All' is active by default
+      const allBtn = qs('[data-filter="all"]');
+      if (allBtn) allBtn.classList.add('active');
+    }
+
+    // load articles (index then each file). If none => show noArticles
+    async function loadArticles() {
+      try {
+        const idxRes = await fetch(DATA_INDEX);
+        if (!idxRes.ok) throw new Error('Index not found');
+        const list = await idxRes.json();
+        if (!Array.isArray(list) || list.length === 0) {
+          ARTICLES = [];
+          renderArticles();
+          return;
+        }
+
+        // fetch each file in parallel and ignore failures for single files
+        const promises = list.map(path => fetch(path).then(r => r.ok ? r.json() : null).catch(()=>null));
+        const results = await Promise.all(promises);
+        ARTICLES = results.filter(Boolean).map(a => normalizeArticle(a)).filter(Boolean);
+        renderArticles();
+      } catch (err) {
+        // if fetch fails, treat as empty dataset and show message
+        console.error('Error loading articles index:', err);
+        ARTICLES = [];
+        renderArticles();
+      }
+    }
+
+    function normalizeArticle(a){
+      if (!a) return null;
+      return {
+        id: a.id ?? (a.title ? a.title.slice(0,20) : Date.now()),
+        category: (a.category || '').toString().toLowerCase(),
+        tags: Array.isArray(a.tags) ? a.tags.map(t => t.toString().toLowerCase()) : ((a.tags||'').toString().split(',').map(s=>s.trim().toLowerCase()).filter(Boolean)),
+        image: a.image || '',
+        alt: a.alt || a.title || 'Article image',
+        title: a.title || '',
+        description: a.description || '',
+        author: a.author || '',
+        date: a.date || ''
+      };
+    }
+
+    function renderArticles() {
+      grid.innerHTML = '';
+      if (!ARTICLES.length) {
+        noArticles.classList.remove('d-none');
+        noResults.classList.add('d-none');
+        return;
+      }
+      noArticles.classList.add('d-none');
+      const html = ARTICLES.map(cardHTML).join('');
+      grid.innerHTML = html;
+      populateFilters();
+      applyInitialURLParams();
+      applyFilters(); // ensure filters applied
+    }
+
+    // delegated clicks for categories & tags
+    document.addEventListener('click', e => {
+      const catBtn = e.target.closest('[data-filter]');
+      if (catBtn) {
+        // remove active from siblings
+        qsa('[data-filter]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+        catBtn.classList.add('active');
+        catBtn.setAttribute('aria-pressed', 'true');
+        FILTER.category = (catBtn.getAttribute('data-filter') || 'all').toLowerCase();
+        applyFilters();
+        updateURLParams();
+        return;
       }
 
-      // On load: if ?q= present, prefill and run filter
-      document.addEventListener('DOMContentLoaded', function () {
-        const params = new URLSearchParams(location.search);
-        const q = params.get('q');
-        if (q) {
-          searchInput.value = q;
-          filterArticles({ query: q.toLowerCase() });
+      const tagBtn = e.target.closest('[data-tag]');
+      if (tagBtn) {
+        const t = (tagBtn.getAttribute('data-tag') || '').toLowerCase();
+        if (!t) return;
+        // toggle tag in FILTER.tags (multi-select)
+        const idx = FILTER.tags.indexOf(t);
+        if (idx >= 0) {
+          FILTER.tags.splice(idx, 1);
+          tagBtn.classList.remove('active');
+          tagBtn.classList.remove('btn-primary');
+          tagBtn.classList.add('btn-outline-secondary');
+          tagBtn.setAttribute('aria-pressed', 'false');
+        } else {
+          FILTER.tags.push(t);
+          tagBtn.classList.add('active');
+          tagBtn.classList.remove('btn-outline-secondary');
+          tagBtn.classList.add('btn-primary');
+          tagBtn.setAttribute('aria-pressed', 'true');
         }
+        applyFilters();
+        updateURLParams();
+        return;
+      }
+    });
+
+    // search handling
+    if (searchForm && searchInput) {
+      searchForm.addEventListener('submit', e => {
+        e.preventDefault();
+        FILTER.query = (searchInput.value || '').trim();
+        updateURLParams();
+        applyFilters();
       });
+    }
 
-      // Highlight active nav link will be done by include.js after header injection.
-    })();
+    // clear all filters
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        FILTER = { category: 'all', tags: [], query: '' };
+        // UI reset
+        qsa('[data-filter]').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+        const allBtn = qs('[data-filter="all"]');
+        if (allBtn) { allBtn.classList.add('active'); allBtn.setAttribute('aria-pressed', 'true'); }
+        qsa('[data-tag]').forEach(b => { b.classList.remove('active'); b.classList.remove('btn-primary'); b.classList.add('btn-outline-secondary'); b.setAttribute('aria-pressed', 'false'); });
+        if (searchInput) searchInput.value = '';
+        applyFilters();
+        history.replaceState(null,'', location.pathname);
+      });
+    }
+
+    // modal form demo behaviour
+    if (form) {
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (!form.checkValidity()) {
+          form.classList.add('was-validated');
+          return;
+        }
+        const fd = new FormData(form);
+        // demo: we won't persist, but show toast and close
+        const modal = bootstrap.Modal.getInstance(qs('#requestModal'));
+        if (modal) modal.hide();
+        form.reset();
+        form.classList.remove('was-validated');
+        if (toast) toast.show();
+      });
+    }
+
+    // announcer for screen readers (keeps aria-live small)
+    let announcer = qs('#__announcer__');
+    if (!announcer) {
+      announcer = document.createElement('div');
+      announcer.id = '__announcer__';
+      announcer.className = 'sr-only';
+      announcer.setAttribute('aria-live','polite');
+      document.body.appendChild(announcer);
+    }
+    function announce(msg){ if (announcer) announcer.textContent = msg; }
+
+    // update URL params to reflect current filters (for sharability)
+    function updateURLParams() {
+      try {
+        const url = new URL(location.href);
+        if (FILTER.query) url.searchParams.set('q', FILTER.query); else url.searchParams.delete('q');
+        if (FILTER.category && FILTER.category !== 'all') url.searchParams.set('category', FILTER.category); else url.searchParams.delete('category');
+        if (FILTER.tags && FILTER.tags.length) url.searchParams.set('tag', FILTER.tags.join(',')); else url.searchParams.delete('tag');
+        history.replaceState(null, '', url);
+      } catch (e) { /* ignore */ }
+    }
+
+    // initial URL param support: q, category, tag (comma-separated)
+    function applyInitialURLParams() {
+      try {
+        const p = new URLSearchParams(location.search);
+        const q = p.get('q') || '';
+        const cat = (p.get('category') || '').toLowerCase();
+        const tagParam = (p.get('tag') || '');
+        const tagList = tagParam ? tagParam.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean) : [];
+
+        if (q && searchInput) { searchInput.value = q; FILTER.query = q; }
+        if (cat) {
+          const btn = qs(`[data-filter="${cat}"]`);
+          if (btn) btn.click();
+        } else {
+          const allBtn = qs('[data-filter="all"]');
+          if (allBtn) { allBtn.classList.add('active'); allBtn.setAttribute('aria-pressed','true'); }
+        }
+
+        if (tagList.length) {
+          // try to click corresponding tag buttons
+          tagList.forEach(t => {
+            const tbtn = qs(`[data-tag="${t}"]`);
+            if (tbtn && tbtn.getAttribute('aria-pressed') !== 'true') {
+              tbtn.click();
+            }
+          });
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // small util
+    function capitalize(s){ return s && s[0] ? s[0].toUpperCase() + s.slice(1) : s; }
+
+    // Load on DOM ready
+    document.addEventListener('DOMContentLoaded', loadArticles);
+  })();
   </script>
-
-  <!-- include.js must come after page content (it injects header/footer and applies accent) -->
-  <script src="/temp/src/include.js"></script>
 </body>
 </html>

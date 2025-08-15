@@ -1,0 +1,11 @@
+{
+  "id": 3,
+  "category": "health",
+  "tags": ["wellness"],
+  "image": "https://picsum.photos/seed/3/800/450",
+  "alt": "Mindfulness Thumbnail",
+  "title": "Mindfulness for Student Stress",
+  "description": "Daily practices to reduce anxiety during exams.",
+  "author": "Dr. Kim",
+  "date": "Jul 14, 2025"
+}
