@@ -43,8 +43,8 @@
 
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="/temp/public/index.html" aria-current="page">Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/temp/public/articles.html">Articles</a></li>
+          <li class="nav-item"><a class="nav-link" href="/temp/public/index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/temp/public/articles.html">Articles</a></li>
           <li class="nav-item dropdown">
             <button class="btn btn-light dropdown-toggle ms-2 focus-outline" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false" type="button">
               <i class="fa-solid fa-user" aria-hidden="true"></i><span class="visually-hidden"> User menu</span>
@@ -63,17 +63,23 @@
 
   <!-- MAIN -->
   <main class="container my-4" role="main">
-    <!-- Search -->
+    <!-- Search + Add -->
     <div class="row mb-4">
       <div class="col-12 col-lg-8 mx-auto">
-        <form id="searchForm" role="search" aria-label="Search articles" class="input-group">
-          <span class="input-group-text" id="search-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
-          <input id="searchInput" class="form-control" type="search" placeholder="Search articles..." aria-label="Search articles" />
-          <button class="btn btn-outline-secondary" type="submit" aria-label="Search">Search</button>
-          <button id="clearBtn" class="btn btn-outline-danger" type="button" title="Clear filters">Clear</button>
-        </form>
+        <div class="d-flex justify-content-between align-items-center">
+          <form id="searchForm" role="search" aria-label="Search articles" class="input-group flex-grow-1 me-3">
+            <span class="input-group-text" id="search-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
+            <input id="searchInput" class="form-control" type="search" placeholder="Search articles..." aria-label="Search articles" />
+            <button class="btn btn-outline-secondary" type="submit" aria-label="Search">Search</button>
+            <button id="clearBtn" class="btn btn-outline-danger" type="button" title="Clear filters">Clear</button>
+          </form>
+          <button class="btn btn-outline-primary btn-lg focus-outline flex-shrink-0" type="button" data-bs-toggle="modal" data-bs-target="#requestModal" aria-haspopup="dialog" aria-controls="requestModal">
+            Add an Article
+          </button>
+        </div>
       </div>
     </div>
+
 
     <div class="row g-4">
       <!-- Sidebar -->
@@ -81,9 +87,10 @@
         <div class="sticky-top" style="top:1rem;">
           <section class="mb-4" aria-labelledby="trendingHeading">
             <h6 id="trendingHeading" class="text-uppercase small text-muted">Trending</h6>
-            <ul class="list-unstyled mb-0">
-              <li><a href="#" class="d-block text-decoration-none py-1">How to present research in 5 minutes</a></li>
-            </ul>
+            <div id="trendingList" class="list-group mb-0" role="list">
+              <!-- trending items generated here -->
+              <div class="small text-muted">No Trending Yet</div>
+            </div>
           </section>
 
           <section class="mb-4" aria-labelledby="categoriesHeading">
@@ -205,7 +212,7 @@
   <!-- Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Focused JS: single IIFE for loading, filtering, search, modal form + toast -->
+  <!-- Focused JS: single IIFE for loading, filtering, search, modal form + toast + trending -->
   <script>
   (function () {
     'use strict';
@@ -222,6 +229,7 @@
     const clearBtn = qs('#clearBtn');
     const noResults = qs('#noResults');
     const noArticles = qs('#noArticles');
+    const trendingList = qs('#trendingList');
     const toastEl = qs('#submitToast');
     const toast = toastEl ? new bootstrap.Toast(toastEl, { autohide: true, delay: 2200 }) : null;
     const form = qs('#requestForm');
@@ -256,6 +264,43 @@
     // XSS-safe helpers (minimal)
     function escapeHtml(s){ if(!s && s!==0) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
     function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;'); }
+
+    // Storage helpers for visit counts
+    const VIEWS_KEY = 'articleViews_v1';
+    function loadViews(){ try { return JSON.parse(localStorage.getItem(VIEWS_KEY) || '{}'); } catch (e) { return {}; } }
+    function saveViews(obj){ try { localStorage.setItem(VIEWS_KEY, JSON.stringify(obj)); } catch(e){} }
+    function incrementView(id){
+      if (!id) return;
+      const obj = loadViews();
+      obj[id] = (obj[id] || 0) + 1;
+      saveViews(obj);
+      updateTrending();
+    }
+
+    // update trending UI (top 3 by count). If top count is 0 => "No Trending Yet"
+    function updateTrending(){
+      if(!trendingList) return;
+      // make sure ARTICLES is available
+      if (!ARTICLES || !ARTICLES.length) {
+        trendingList.innerHTML = `<div class="small text-muted">No Trending Yet</div>`;
+        return;
+      }
+      const views = loadViews();
+      const arr = ARTICLES.map(a => ({ id: a.id, title: a.title, count: views[a.id] || 0, url: `/temp/public/article.html?id=${encodeURIComponent(a.id)}` }));
+      arr.sort((x,y) => (y.count - x.count) || x.title.localeCompare(y.title));
+      const maxCount = arr.length ? (arr[0].count || 0) : 0;
+      if (maxCount === 0) {
+        trendingList.innerHTML = `<div class="small text-muted">No Trending Yet</div>`;
+        return;
+      }
+      const top = arr.filter(x=>x.count>0).slice(0,3);
+      trendingList.innerHTML = top.map(t => {
+        return `<a href="${escapeAttr(t.url)}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-trend-id="${escapeAttr(t.id)}">
+                  <span class="me-2 text-truncate" style="max-width:180px;">${escapeHtml(t.title)}</span>
+                  <span class="badge bg-primary rounded-pill">${t.count}</span>
+                </a>`;
+      }).join('');
+    }
 
     // apply filters to DOM items
     function applyFilters() {
@@ -366,6 +411,7 @@
       if (!ARTICLES.length) {
         noArticles.classList.remove('d-none');
         noResults.classList.add('d-none');
+        updateTrending();
         return;
       }
       noArticles.classList.add('d-none');
@@ -374,9 +420,10 @@
       populateFilters();
       applyInitialURLParams();
       applyFilters(); // ensure filters applied
+      updateTrending();
     }
 
-    // delegated clicks for categories & tags
+    // delegated clicks for categories & tags & read/trending links
     document.addEventListener('click', e => {
       const catBtn = e.target.closest('[data-filter]');
       if (catBtn) {
@@ -411,6 +458,26 @@
         }
         applyFilters();
         updateURLParams();
+        return;
+      }
+
+      // "Read" links or any link to article.html?id=... (including trending items)
+      const readLink = e.target.closest('a[href*="article.html?id="]');
+      if (readLink) {
+        // record view then navigate
+        e.preventDefault();
+        const href = readLink.getAttribute('href');
+        try {
+          const url = new URL(href, location.origin);
+          const id = url.searchParams.get('id') || readLink.closest('article')?.dataset.id;
+          incrementView(id);
+        } catch (err) {
+          // fallback: try to find id on parent article
+          const id = readLink.closest('article')?.dataset.id;
+          incrementView(id);
+        }
+        // proceed to navigate (no long delay)
+        location.href = readLink.href;
         return;
       }
     });
@@ -518,5 +585,101 @@
     document.addEventListener('DOMContentLoaded', loadArticles);
   })();
   </script>
+
+
+
+
+  <!-- Navigation link activation script -->
+  <script>
+  (function () {
+    'use strict';
+
+    // Normalize a path for comparison:
+    // - treat "/" as "/index.html"
+    // - if path ends with "/", append "index.html"
+    // - strip hash, keep search (so query-aware links can be matched if needed)
+    function normalizeForCompare(p) {
+      if (!p) p = '/';
+      // ensure we only have path+search (not origin)
+      p = p.split('#')[0]; // remove fragment
+      // if only pathname
+      if (!p.includes('?') && p.endsWith('/')) p = p + 'index.html';
+      if (p === '/') p = '/index.html';
+      // collapse duplicate slashes
+      p = p.replace(/\/+/g, '/');
+      return p;
+    }
+
+    function activateNavLinks() {
+      const navLinks = Array.from(document.querySelectorAll('.navbar-nav .nav-link'));
+      if (!navLinks.length) return;
+
+      // normalized current (include search if present)
+      const currPath = normalizeForCompare(location.pathname + (location.search || ''));
+
+      // clear any existing active states first
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        a.removeAttribute('aria-current');
+      });
+
+      // Try to match exact pathname+search first, then fallback to pathname-only,
+      // then fallback to filename match (e.g., articles.html)
+      let matched = null;
+
+      // 1) exact path+search
+      for (const a of navLinks) {
+        try {
+          const url = new URL(a.getAttribute('href'), location.href);
+          if (url.origin !== location.origin) continue;
+          const linkNorm = normalizeForCompare(url.pathname + (url.search || ''));
+          if (linkNorm === currPath) { matched = a; break; }
+        } catch (e) { /* ignore malformed href */ }
+      }
+
+      // 2) pathname-only fallback
+      if (!matched) {
+        const currPathNoQuery = normalizeForCompare(location.pathname);
+        for (const a of navLinks) {
+          try {
+            const url = new URL(a.getAttribute('href'), location.href);
+            if (url.origin !== location.origin) continue;
+            const linkNorm = normalizeForCompare(url.pathname);
+            if (linkNorm === currPathNoQuery) { matched = a; break; }
+          } catch (e) {}
+        }
+      }
+
+      // 3) filename fallback (last resort)
+      if (!matched) {
+        const currFile = (location.pathname || '').split('/').pop() || 'index.html';
+        for (const a of navLinks) {
+          try {
+            const url = new URL(a.getAttribute('href'), location.href);
+            if (url.origin !== location.origin) continue;
+            const linkFile = (url.pathname || '').split('/').pop() || 'index.html';
+            if (linkFile === currFile) { matched = a; break; }
+          } catch (e) {}
+        }
+      }
+
+      if (matched) {
+        matched.classList.add('active');
+        matched.setAttribute('aria-current', 'page');
+      }
+    }
+
+    // run on first load
+    document.addEventListener('DOMContentLoaded', activateNavLinks);
+
+    // update on history navigation (back/forward)
+    window.addEventListener('popstate', activateNavLinks);
+
+    // (Optional) if your app dynamically changes location via pushState, call
+    // activateNavLinks() after calling history.pushState(...) so nav updates.
+
+  })();
+  </script>
+
 </body>
 </html>

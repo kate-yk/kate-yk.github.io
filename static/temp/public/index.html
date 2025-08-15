@@ -64,7 +64,7 @@
 
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto align-items-lg-center">
-          <li class="nav-item"><a class="nav-link active" href="/temp/public/index.html" aria-current="page">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/temp/public/index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/temp/public/articles.html">Articles</a></li>
           <li class="nav-item dropdown">
             <button class="btn btn-light dropdown-toggle ms-2 focus-outline" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false" type="button">
@@ -283,6 +283,97 @@
         });
       } catch (e) { /* ignore */ }
     })();
+  </script>
+  <!-- Navigation link activation script -->
+  <script>
+  (function () {
+    'use strict';
+
+    // Normalize a path for comparison:
+    // - treat "/" as "/index.html"
+    // - if path ends with "/", append "index.html"
+    // - strip hash, keep search (so query-aware links can be matched if needed)
+    function normalizeForCompare(p) {
+      if (!p) p = '/';
+      // ensure we only have path+search (not origin)
+      p = p.split('#')[0]; // remove fragment
+      // if only pathname
+      if (!p.includes('?') && p.endsWith('/')) p = p + 'index.html';
+      if (p === '/') p = '/index.html';
+      // collapse duplicate slashes
+      p = p.replace(/\/+/g, '/');
+      return p;
+    }
+
+    function activateNavLinks() {
+      const navLinks = Array.from(document.querySelectorAll('.navbar-nav .nav-link'));
+      if (!navLinks.length) return;
+
+      // normalized current (include search if present)
+      const currPath = normalizeForCompare(location.pathname + (location.search || ''));
+
+      // clear any existing active states first
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        a.removeAttribute('aria-current');
+      });
+
+      // Try to match exact pathname+search first, then fallback to pathname-only,
+      // then fallback to filename match (e.g., articles.html)
+      let matched = null;
+
+      // 1) exact path+search
+      for (const a of navLinks) {
+        try {
+          const url = new URL(a.getAttribute('href'), location.href);
+          if (url.origin !== location.origin) continue;
+          const linkNorm = normalizeForCompare(url.pathname + (url.search || ''));
+          if (linkNorm === currPath) { matched = a; break; }
+        } catch (e) { /* ignore malformed href */ }
+      }
+
+      // 2) pathname-only fallback
+      if (!matched) {
+        const currPathNoQuery = normalizeForCompare(location.pathname);
+        for (const a of navLinks) {
+          try {
+            const url = new URL(a.getAttribute('href'), location.href);
+            if (url.origin !== location.origin) continue;
+            const linkNorm = normalizeForCompare(url.pathname);
+            if (linkNorm === currPathNoQuery) { matched = a; break; }
+          } catch (e) {}
+        }
+      }
+
+      // 3) filename fallback (last resort)
+      if (!matched) {
+        const currFile = (location.pathname || '').split('/').pop() || 'index.html';
+        for (const a of navLinks) {
+          try {
+            const url = new URL(a.getAttribute('href'), location.href);
+            if (url.origin !== location.origin) continue;
+            const linkFile = (url.pathname || '').split('/').pop() || 'index.html';
+            if (linkFile === currFile) { matched = a; break; }
+          } catch (e) {}
+        }
+      }
+
+      if (matched) {
+        matched.classList.add('active');
+        matched.setAttribute('aria-current', 'page');
+      }
+    }
+
+    // run on first load
+    document.addEventListener('DOMContentLoaded', activateNavLinks);
+
+    // update on history navigation (back/forward)
+    window.addEventListener('popstate', activateNavLinks);
+
+    // (Optional) if your app dynamically changes location via pushState, call
+    // activateNavLinks() after calling history.pushState(...) so nav updates.
+
+  })();
   </script>
 </body>
 </html>

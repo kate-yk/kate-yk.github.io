@@ -4,51 +4,88 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GYCO — Article</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">   <!-- Normalize browser defaults -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">    <!-- Bootstrap core -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">  <!-- Font Awesome icons -->
 
-  <link rel="stylesheet" href="/temp/styles/new.css" />
+  <!-- Normalize + Bootstrap + Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
-  <!-- <style>
-    :root { --accent: #0d6efd; }
-    .fab { position: fixed; right:1.25rem; bottom:1.25rem; z-index:1050; width:56px; height:56px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(13,110,253,.12); background:var(--accent); color:#fff; border:none; }
-    .card-img-hero { width:100%; height:360px; object-fit:cover; border-radius:.5rem; }
-    .focus-outline:focus { outline: 3px solid rgba(13,110,253,0.18); outline-offset:2px; }
-  </style> -->
+  <style>
+    :root { --accent:#0d6efd; }
+    body { background:#fff; color:#111; }
+    .focus-outline:focus-visible { outline: none; box-shadow: 0 0 0 .25rem rgba(13,110,253,.18); border-radius:.25rem; }
+    .sr-only { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+    .card-img-hero { width:100%; height:360px; object-fit:cover; border-radius:.5rem; display:block; }
+    .meta-muted { color:#6c757d; font-size:.95rem; }
+    .related-item { text-decoration:none; color:inherit; }
+    .article-tools { border-top:1px solid #e9ecef; padding-top:.75rem; margin-top:1rem; display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
+    .empty-state { color:#6c757d; }
+  </style>
 </head>
 <body>
-  <!-- shared header injected here -->
-  <div data-include="/temp/public/header"></div>
+  <!-- NAV (no hard-coded active) -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" aria-label="Main navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/temp/public/index.html" aria-label="GYCO home">
+        <img src="https://via.placeholder.com/36" alt="" class="rounded" width="36" height="36">
+        <span class="fw-bold">GYCO</span>
+      </a>
 
+      <button class="navbar-toggler focus-outline" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="/temp/public/index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/temp/public/articles.html">Articles</a></li>
+          <li class="nav-item dropdown">
+            <button class="btn btn-light dropdown-toggle ms-2 focus-outline" id="userMenuBtn" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+              <i class="fa-solid fa-user" aria-hidden="true"></i><span class="visually-hidden"> User menu</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuBtn">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">My Articles</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-
-  <!-- MAIN: small search here (search bar belongs to main) + article -->
+  <!-- MAIN -->
   <main class="container my-4" role="main">
-    <!-- Search (for convenience on the article page) -->
+    <!-- Search -->
     <div class="row mb-3">
       <div class="col-12 col-lg-8 mx-auto">
         <form id="searchForm" role="search" aria-label="Search articles">
           <div class="input-group">
-            <span class="input-group-text" id="search-icon"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
+            <span class="input-group-text"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
             <input id="searchInput" class="form-control" type="search" placeholder="Search articles..." aria-label="Search articles" />
-            <button class="btn btn-outline-secondary" type="submit" aria-label="Search">Search</button>
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
           </div>
         </form>
       </div>
     </div>
 
     <div class="row">
+      <!-- Article column -->
       <div class="col-12 col-lg-8">
-        <article id="articleMain" aria-labelledby="articleTitle">
-          <h1 id="articleTitle" class="h3">Loading…</h1>
-          <div class="text-muted small mb-3">By <span id="articleAuthor">—</span> • <time id="articleDate">—</time></div>
-          <img id="articleHero" class="card-img-hero mb-3" src="" alt="" />
-          <section id="articleBody">
-            <p class="lead">Content will appear here.</p>
-          </section>
-        </article>
+        <!-- Container where external article HTML will be injected -->
+        <div id="articleContainer" aria-live="polite" aria-atomic="true">
+          <div id="loadingState" class="mb-4">
+            <h1 id="articleTitle" class="h3 mb-2">Loading…</h1>
+            <div class="meta-muted mb-3">By <span id="articleAuthor">—</span> • <time id="articleDate">—</time></div>
+            <div class="lead">Loading content…</div>
+          </div>
+        </div>
+
+        <!-- Missing content prompt -->
+        <div id="missingAlert" class="alert alert-warning d-none" role="alert" aria-live="polite">
+          This article does not have content yet. You can <button id="openRequestFromMissing" class="btn btn-sm btn-link p-0" data-bs-toggle="modal" data-bs-target="#requestModal">request similar content</button> or return to the <a href="/temp/public/articles.html">articles list</a>.
+        </div>
       </div>
 
       <!-- Sidebar -->
@@ -56,7 +93,9 @@
         <div class="sticky-top" style="top:1rem;">
           <div class="mb-3">
             <h6 class="text-uppercase small text-muted">Related</h6>
-            <div id="relatedList"></div>
+            <div id="relatedList" class="list-group" aria-live="polite" aria-atomic="true">
+              <div class="small text-muted">Loading related…</div>
+            </div>
           </div>
 
           <div class="mb-3">
@@ -67,212 +106,391 @@
     </div>
   </main>
 
-  <!-- shared footer injected here -->
-  <div data-include="/temp/public/footer"></div>
+  <!-- Footer + shared modal + toast (minimal) -->
+  <footer class="bg-white border-top">
+    <div class="container py-3 d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div class="small text-muted">© 2025 Greater Youth Collaborative Opus</div>
+      <nav aria-label="Footer">
+        <a class="text-decoration-none small me-3" href="/temp/public/index.html">About</a>
+        <a class="text-decoration-none small me-3" href="/temp/public/index.html">Contact</a>
+        <a class="text-decoration-none small" href="/temp/public/index.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </footer>
 
+  <!-- Add / Request modal (same pattern as index) -->
+  <div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="requestForm" class="modal-content needs-validation" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="requestModalLabel">Request an Article</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-  <!-- Bootstrap JS -->
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="reqTitle" class="form-label">Article Title</label>
+            <input id="reqTitle" name="title" class="form-control" type="text" required maxlength="150" />
+            <div class="invalid-feedback">Please add a title (max 150 chars).</div>
+          </div>
+          <div class="mb-3">
+            <label for="reqDesc" class="form-label">Description</label>
+            <textarea id="reqDesc" name="description" class="form-control" rows="4" required></textarea>
+            <div class="invalid-feedback">Please add a description.</div>
+          </div>
+          <div class="mb-3">
+            <label for="reqTags" class="form-label">Tags</label>
+            <input id="reqTags" name="tags" class="form-control" placeholder="e.g. research, design" />
+            <div class="form-text">Separate tags with commas.</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button id="submitRequest" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080;">
+    <div id="submitToast" class="toast align-items-center text-white bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">Request submitted.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependencies -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Page script -->
   <script>
-    (function () {
-      // Small demo dataset
-    // Expanded demo dataset with 14 articles
-    const articles = {
-    "1": {
-        id: "1",
-        title: "Rapid Prototyping for Youth Projects",
-        author: "Alex",
-        date: "Jul 30, 2025",
-        hero: "https://picsum.photos/seed/1/1200/600",
-        body: "<p class='lead'>How to iterate on ideas with minimal resources.</p><p>Rapid prototyping helps teams validate concepts quickly. Use inexpensive materials, limit scope, and get feedback early.</p><h2>Steps</h2><ul><li>Define goal</li><li>Create low-fidelity prototype</li><li>Test and iterate</li></ul>",
-        tags: ["research", "design"]
-    },
-    "2": {
-        id: "2",
-        title: "Community Coding Bootcamp Recap",
-        author: "Maya",
-        date: "Jul 25, 2025",
-        hero: "https://picsum.photos/seed/2/1200/600",
-        body: "<p class='lead'>Highlights and student projects from our latest cohort.</p><p>Students built apps addressing local needs. Here are three standout projects...</p>",
-        tags: ["community", "career"]
-    },
-    "3": {
-        id: "3",
-        title: "Mindfulness for Student Stress",
-        author: "Dr. Kim",
-        date: "Jul 14, 2025",
-        hero: "https://picsum.photos/seed/3/1200/600",
-        body: "<p class='lead'>Daily practices to reduce anxiety during exams.</p><p>Practice short breathing exercises and scheduling to stay grounded.</p>",
-        tags: ["wellness"]
-    },
-    "4": {
-        id: "4",
-        title: "AI Tools for Small Businesses",
-        author: "Jordan",
-        date: "Jun 29, 2025",
-        hero: "https://picsum.photos/seed/4/1200/600",
-        body: "<p class='lead'>Leveraging AI without breaking the bank.</p><p>From customer support chatbots to automated bookkeeping, AI can boost productivity for small teams.</p>",
-        tags: ["technology", "business"]
-    },
-    "5": {
-        id: "5",
-        title: "Sustainable Gardening in Urban Areas",
-        author: "Leah",
-        date: "Jun 18, 2025",
-        hero: "https://picsum.photos/seed/5/1200/600",
-        body: "<p class='lead'>Grow your own food even with limited space.</p><p>Container gardening, vertical setups, and balcony farms are great options for city dwellers.</p>",
-        tags: ["environment", "lifestyle"]
-    },
-    "6": {
-        id: "6",
-        title: "Breaking Into Cybersecurity",
-        author: "Sam",
-        date: "Jun 10, 2025",
-        hero: "https://picsum.photos/seed/6/1200/600",
-        body: "<p class='lead'>Steps to launch your career in cybersecurity.</p><p>Learn about entry-level certifications, online resources, and networking with industry professionals.</p>",
-        tags: ["career", "technology"]
-    },
-    "7": {
-        id: "7",
-        title: "The Future of Renewable Energy",
-        author: "Priya",
-        date: "May 27, 2025",
-        hero: "https://picsum.photos/seed/7/1200/600",
-        body: "<p class='lead'>Solar, wind, and beyond.</p><p>Innovations in renewable energy promise cleaner power and lower costs for consumers.</p>",
-        tags: ["environment", "science"]
-    },
-    "8": {
-        id: "8",
-        title: "Design Thinking for Beginners",
-        author: "Eli",
-        date: "May 15, 2025",
-        hero: "https://picsum.photos/seed/8/1200/600",
-        body: "<p class='lead'>Creative problem solving made simple.</p><p>Learn the 5 stages of design thinking and how to apply them to everyday challenges.</p>",
-        tags: ["design", "education"]
-    },
-    "9": {
-        id: "9",
-        title: "Healthy Meal Prepping on a Budget",
-        author: "Nina",
-        date: "May 01, 2025",
-        hero: "https://picsum.photos/seed/9/1200/600",
-        body: "<p class='lead'>Eat well without overspending.</p><p>Plan weekly meals, buy in bulk, and reduce food waste to save money and stay healthy.</p>",
-        tags: ["health", "lifestyle"]
-    },
-    "10": {
-        id: "10",
-        title: "Getting Started with 3D Printing",
-        author: "Omar",
-        date: "Apr 21, 2025",
-        hero: "https://picsum.photos/seed/10/1200/600",
-        body: "<p class='lead'>From concept to creation.</p><p>3D printing allows you to prototype products, make custom tools, and even print replacement parts at home.</p>",
-        tags: ["technology", "maker"]
-    },
-    "11": {
-        id: "11",
-        title: "The Science of Habit Formation",
-        author: "Clara",
-        date: "Apr 08, 2025",
-        hero: "https://picsum.photos/seed/11/1200/600",
-        body: "<p class='lead'>Why habits stick and how to change them.</p><p>Understand the habit loop and use proven methods to create lasting behavior change.</p>",
-        tags: ["psychology", "self-improvement"]
-    },
-    "12": {
-        id: "12",
-        title: "Beginner’s Guide to Hiking Trails",
-        author: "Luis",
-        date: "Mar 29, 2025",
-        hero: "https://picsum.photos/seed/12/1200/600",
-        body: "<p class='lead'>Exploring the outdoors safely.</p><p>Learn essential gear, navigation tips, and how to prepare for your first hiking trip.</p>",
-        tags: ["travel", "lifestyle"]
-    },
-    "13": {
-        id: "13",
-        title: "Intro to Data Visualization",
-        author: "Zara",
-        date: "Mar 15, 2025",
-        hero: "https://picsum.photos/seed/13/1200/600",
-        body: "<p class='lead'>Turning numbers into stories.</p><p>Learn the basics of creating effective charts, graphs, and dashboards.</p>",
-        tags: ["data", "design"]
-    },
-    "14": {
-        id: "14",
-        title: "Remote Work Best Practices",
-        author: "Henry",
-        date: "Mar 01, 2025",
-        hero: "https://picsum.photos/seed/14/1200/600",
-        body: "<p class='lead'>Stay productive from anywhere.</p><p>Set up a dedicated workspace, maintain regular hours, and communicate effectively with your team.</p>",
-        tags: ["career", "productivity"]
+  (function () {
+    'use strict';
+
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
+    const ARTICLE_DIR = '/temp/data/articles/';
+    const INDEX_JSON = '/temp/data/articles.json';
+    const VIEWS_KEY = 'articleViews_v1';
+
+    // NAV activation (same robust behaviour)
+    function normalizeForCompare(p) {
+      if (!p) p = '/';
+      p = p.split('#')[0];
+      if (!p.includes('?') && p.endsWith('/')) p = p + 'index.html';
+      if (p === '/') p = '/index.html';
+      p = p.replace(/\/+/g, '/');
+      return p;
     }
-    };
+    function activateNavLinks() {
+      const navLinks = Array.from(document.querySelectorAll('.navbar-nav .nav-link'));
+      if (!navLinks.length) return;
+      const currPath = normalizeForCompare(location.pathname + (location.search || ''));
+      navLinks.forEach(a => { a.classList.remove('active'); a.removeAttribute('aria-current'); });
+      let matched = null;
+      for (const a of navLinks) {
+        try {
+          const url = new URL(a.getAttribute('href'), location.href);
+          if (url.origin !== location.origin) continue;
+          const linkNorm = normalizeForCompare(url.pathname + (url.search || ''));
+          if (linkNorm === currPath) { matched = a; break; }
+        } catch (e) {}
+      }
+      if (!matched) {
+        const currPathNoQuery = normalizeForCompare(location.pathname);
+        for (const a of navLinks) {
+          try {
+            const url = new URL(a.getAttribute('href'), location.href);
+            if (url.origin !== location.origin) continue;
+            const linkNorm = normalizeForCompare(url.pathname);
+            if (linkNorm === currPathNoQuery) { matched = a; break; }
+          } catch (e) {}
+        }
+      }
+      if (!matched) {
+        const currFile = (location.pathname || '').split('/').pop() || 'index.html';
+        for (const a of navLinks) {
+          try {
+            const url = new URL(a.getAttribute('href'), location.href);
+            if (url.origin !== location.origin) continue;
+            const linkFile = (url.pathname || '').split('/').pop() || 'index.html';
+            if (linkFile === currFile) { matched = a; break; }
+          } catch (e) {}
+        }
+      }
+      if (matched) { matched.classList.add('active'); matched.setAttribute('aria-current','page'); }
+    }
 
-      // Helpers
-      const qs = name => new URLSearchParams(window.location.search).get(name);
-      const el = id => document.getElementById(id);
+    // Views storage
+    function loadViews(){ try { return JSON.parse(localStorage.getItem(VIEWS_KEY) || '{}'); } catch(e){ return {}; } }
+    function saveViews(obj){ try { localStorage.setItem(VIEWS_KEY, JSON.stringify(obj)); } catch(e){} }
+    function incrementView(id){
+      if (!id) return;
+      const obj = loadViews();
+      obj[id] = (obj[id] || 0) + 1;
+      saveViews(obj);
+      updateViewUI(id);
+    }
+    function updateViewUI(id){
+      const el = qs('#articleToolsViewCount');
+      if (el) el.textContent = `Views: ${ (loadViews()[id] || 0) }`;
+    }
 
-      // Load article by id param (fallback to 1)
-      const id = qs('id') || '1';
-      const article = articles[id];
-      if (article) {
-        el('articleTitle').textContent = article.title;
-        el('articleAuthor').textContent = article.author;
-        el('articleDate').textContent = article.date;
-        el('articleHero').src = article.hero;
-        el('articleHero').alt = article.title;
-        el('articleBody').innerHTML = article.body;
-      } else {
-        el('articleMain').innerHTML = '<p>Article not found. <a href="/temp/public/articles.html">Return to articles</a>.</p>';
+    // Helpers
+    function currentIdFromURL(){ return (new URLSearchParams(location.search)).get('id') || ''; }
+    function escapeHtml(s){ if (!s && s !== 0) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    // Fetch index (used to compute related)
+    async function fetchIndex(){
+      try {
+        const r = await fetch(INDEX_JSON);
+        if (!r.ok) return [];
+        const j = await r.json();
+        return Array.isArray(j) ? j : [];
+      } catch (e) { return []; }
+    }
+
+    // Fetch article HTML file by id
+    async function fetchArticleHtmlById(id){
+      if (!id) return null;
+      const path = `${ARTICLE_DIR}${encodeURIComponent(id)}.html`;
+      try {
+        const r = await fetch(path);
+        if (!r.ok) return null;
+        const text = await r.text();
+        return { html: text, path };
+      } catch (e) { return null; }
+    }
+
+    // Inject HTML safely: parse DOM, import nodes to current document
+    function injectHtmlIntoContainer(html, container){
+      // Parse into a document fragment to avoid immediate script execution (safer)
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      // Move body children into a fragment
+      const frag = document.createDocumentFragment();
+      Array.from(doc.body.childNodes).forEach(node => frag.appendChild(node));
+      // Clear container and append
+      container.innerHTML = '';
+      container.appendChild(frag);
+    }
+
+    // After injection, append a small tools strip (views + back link)
+    function appendArticleTools(container, id){
+      // remove existing if any
+      const prev = container.querySelector('.article-tools-wrapper');
+      if (prev) prev.remove();
+
+      const wrap = document.createElement('div');
+      wrap.className = 'article-tools-wrapper mt-3';
+      wrap.innerHTML = `
+        <div class="article-tools">
+          <div class="small text-muted" id="articleToolsViewCount">Views: 0</div>
+          <div><a class="btn btn-sm btn-outline-secondary" href="/temp/public/articles.html">Back to list</a></div>
+        </div>`;
+      container.appendChild(wrap);
+      updateViewUI(id);
+    }
+
+    // Extract light meta from injected DOM (if index isn't available)
+    function extractMetaFromInjected(container){
+      const titleEl = container.querySelector('h1') || container.querySelector('.display-4') || null;
+      const authorEl = container.querySelector('.author') || container.querySelector('[data-author]') || null;
+      const timeEl = container.querySelector('time[datetime]') || container.querySelector('time') || null;
+      const categoryEl = container.querySelector('.article-meta .badge') || container.querySelector('.category') || null;
+      const tagsEls = Array.from(container.querySelectorAll('.article-meta .badge')).slice(1); // heuristics
+      return {
+        title: titleEl ? titleEl.textContent.trim() : '',
+        author: authorEl ? authorEl.textContent.trim() : '',
+        date: timeEl ? (timeEl.getAttribute('datetime') || timeEl.textContent.trim()) : '',
+        category: categoryEl ? categoryEl.textContent.trim().toLowerCase() : '',
+        tags: tagsEls.map(n => n.textContent.trim().toLowerCase()).filter(Boolean)
+      };
+    }
+
+    // Related computation: prefer using index JSON (metadata). If not available, fall back to meta from injected content.
+    function computeRelatedFromIndex(index, meta){
+      if (!index || !index.length) return [];
+      const curId = String(meta.id);
+      const candidates = index.filter(a => String(a.id) !== curId);
+      // score by same category then shared tags
+      const mTags = Array.isArray(meta.tags) ? meta.tags.map(t=>String(t).toLowerCase()) : [];
+      const scored = candidates.map(a => {
+        let score = 0;
+        if (a.category && meta.category && String(a.category).toLowerCase() === String(meta.category).toLowerCase()) score += 10;
+        const aTags = Array.isArray(a.tags) ? a.tags.map(t=>String(t).toLowerCase()) : [];
+        const shared = aTags.filter(t => mTags.includes(t)).length;
+        score += shared * 3;
+        return { item: a, score };
+      }).filter(x => x.score > 0);
+      scored.sort((x,y) => (y.score - x.score) || (String(x.item.title).localeCompare(y.item.title)));
+      return scored.slice(0,6).map(x => x.item);
+    }
+    function computeRelatedFallback(index, id){
+      if (!index || !index.length) return [];
+      // fallback only when there's no meta/category info at all
+      return index.filter(a => String(a.id) !== String(id)).slice(0,6);
+    }
+
+    // Render related list
+    function renderRelatedList(list){
+      const el = qs('#relatedList');
+      if (!el) return;
+      // sanitize: remove any items missing valid id
+      const sanitized = Array.isArray(list) ? list.filter(i => i && (i.id !== null && typeof i.id !== 'undefined') && String(i.id).trim() !== '') : [];
+      if (!sanitized.length) {
+        el.innerHTML = `<div class="small text-muted">No related articles found.</div>`;
+        return;
+      }
+      el.innerHTML = sanitized.map(i => {
+        // ensure safe strings and valid href
+        const linkId = encodeURIComponent(String(i.id));
+        const title = escapeHtml(i.title || 'Untitled');
+        const author = escapeHtml(i.author || '');
+        const date = escapeHtml(i.date || '');
+        const category = escapeHtml(i.category || '');
+        return `<a href="/temp/public/article.html?id=${linkId}" class="list-group-item list-group-item-action related-item d-flex justify-content-between align-items-start">
+                  <div style="flex:1;min-width:0">
+                    <div class="fw-semibold text-truncate" style="max-width:200px">${title}</div>
+                    <div class="small text-muted">${author}${author && date ? ' • ' : ''}${date}</div>
+                  </div>
+                  <div><small class="badge bg-secondary">${category}</small></div>
+                </a>`;
+      }).join('');
+    }
+
+    // Main loader: tries to fetch file, inject; if not found show prompt
+    async function loadArticle(idOverride){
+      const id = idOverride || currentIdFromURL();
+      const container = qs('#articleContainer');
+      if (!container) return;
+
+      // initial loading UI
+      qs('#loadingState')?.classList.remove('d-none');
+      qs('#missingAlert')?.classList.add('d-none');
+      container.innerHTML = `<div id="loadingState"><h1 id="articleTitle" class="h3 mb-2">Loading…</h1><div class="meta-muted mb-3">By <span id="articleAuthor">—</span> • <time id="articleDate">—</time></div><div class="lead">Loading content…</div></div>`;
+
+      if (!id) {
+        // no id → show message
+        container.innerHTML = `<div class="alert alert-info">No article specified. Return to <a href="/temp/public/articles.html">articles list</a>.</div>`;
+        renderRelatedList([]);
+        return;
       }
 
-      // Related
-      const relatedList = document.getElementById('relatedList');
-      Object.values(articles).filter(a => a.id !== id).forEach(a => {
-        const node = document.createElement('div');
-        node.className = 'mb-2';
-        node.innerHTML = `<a class="text-decoration-none" href="/temp/public/article.html?id=${a.id}">${a.title}</a><div class="small text-muted">${a.author} • ${a.date}</div>`;
-        relatedList.appendChild(node);
-      });
-
-      // Search on article page (navigates to /temp/public/articles.html with query param)
-      const searchForm = document.getElementById('searchForm');
-      searchForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const q = (document.getElementById('searchInput').value || '').trim();
-        // go to articles page with query param (could implement more complex client side)
-        location.href = '/temp/public/articles.html' + (q ? ('?q=' + encodeURIComponent(q)) : '');
-      });
-
-      // Request form submission demo
-      const requestForm = document.getElementById('requestForm');
-      const submitToast = new bootstrap.Toast(document.getElementById('submitToast'));
-      requestForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!requestForm.checkValidity()) {
-          requestForm.classList.add('was-validated');
-          return;
+      // Attempt to fetch the article file
+      const fetched = await fetchArticleHtmlById(id);
+      if (!fetched) {
+        // missing content
+        container.innerHTML = ''; // clear
+        qs('#missingAlert')?.classList.remove('d-none');
+        // compute related from index *only if* index entry exists and has category/tags
+        const idx = await fetchIndex();
+        const metaFromIndex = (Array.isArray(idx) && idx.find(a => String(a.id) === String(id))) || null;
+        let related = [];
+        if (metaFromIndex && (metaFromIndex.category || (Array.isArray(metaFromIndex.tags) && metaFromIndex.tags.length))) {
+          related = computeRelatedFromIndex(idx, metaFromIndex);
+        } else {
+          // explicit: no category → don't show unrelated articles; show empty state
+          related = [];
         }
-        const fd = new FormData(requestForm);
-        console.log('Request payload', {
-          title: fd.get('title'),
-          description: fd.get('description'),
-          tags: (fd.get('tags') || '').split(',').map(s=>s.trim()).filter(Boolean),
-          time: new Date().toISOString()
-        });
-        const modal = bootstrap.Modal.getInstance(document.getElementById('requestModal'));
-        if (modal) modal.hide();
-        requestForm.reset();
-        requestForm.classList.remove('was-validated');
-        submitToast.show();
-      });
+        renderRelatedList(related);
+        return;
+      }
 
-      // Highlight active nav
-      document.querySelectorAll('.navbar .nav-link').forEach(a => {
-        if (a.getAttribute('href') === '/temp/public/article.html') a.classList.add('active');
+      // inject fetched HTML
+      injectHtmlIntoContainer(fetched.html, container);
+
+      // append tools (views/back)
+      appendArticleTools(container, id);
+
+      // increment view count (we render only if fetched content present)
+      incrementView(id);
+
+      // Try to compute related items:
+      const idx = await fetchIndex();
+      // If index contains an entry for this id, use it; otherwise extract meta from injected DOM
+      const metaFromIndex = (Array.isArray(idx) && idx.find(a => String(a.id) === String(id))) || null;
+      const extracted = extractMetaFromInjected(container);
+      const meta = Object.assign({ id }, (metaFromIndex || extracted));
+
+      // New logic:
+      // - If we have a category (either from index or extracted) compute by category/tags.
+      // - If computeRelatedFromIndex returns empty → show "No related articles found."
+      // - Only if we *have no category or tags at all* (rare), we may fall back to a generic list (or choose to show empty). For your requirement, prefer empty state.
+      let related = [];
+      if (meta && meta.category) {
+        related = computeRelatedFromIndex(idx, meta);
+      } else {
+        // if article had no category, don't show unrelated items; show empty state
+        related = [];
+      }
+
+      renderRelatedList(related);
+
+      // set document title if not set by injected HTML
+      if (!document.title || document.title === 'GYCO — Article') {
+        const t = meta.title || container.querySelector('h1')?.textContent || `Article ${id}`;
+        document.title = `GYCO — ${t}`;
+      }
+    }
+
+    // Link interception: tally view before navigation for article links on this page
+    document.addEventListener('click', function (e) {
+      const link = e.target.closest('a[href*="article.html?id="]');
+      if (!link) return;
+      try {
+        const url = new URL(link.getAttribute('href'), location.href);
+        if (url.origin !== location.origin) return;
+        const id = url.searchParams.get('id');
+        if (!id) return;
+        // record then navigate
+        e.preventDefault();
+        incrementView(id);
+        location.href = link.href;
+      } catch (err) { /* ignore */ }
+    });
+
+    // Search: redirect to articles list
+    qs('#searchForm')?.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      const q = (qs('#searchInput')?.value || '').trim();
+      const dest = new URL('/temp/public/articles.html', location.origin);
+      if (q) dest.searchParams.set('q', q);
+      location.href = dest.href;
+    });
+
+    // Request form demo behavior + toast
+    const form = qs('#requestForm');
+    const toastEl = qs('#submitToast');
+    const toast = toastEl ? new bootstrap.Toast(toastEl, { autohide:true, delay:2200 }) : null;
+    if (form) {
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        if (!form.checkValidity()) { form.classList.add('was-validated'); return; }
+        const modal = bootstrap.Modal.getInstance(qs('#requestModal'));
+        if (modal) modal.hide();
+        form.reset();
+        form.classList.remove('was-validated');
+        if (toast) toast.show();
       });
-    })();
+    }
+
+    // Nav activation on load & popstate
+    document.addEventListener('DOMContentLoaded', function () {
+      activateNavLinks();
+      loadArticle(); // auto-load current id
+    });
+    window.addEventListener('popstate', activateNavLinks);
+
+    // Expose API
+    window.ArticlePage = { loadArticle };
+
+  })();
   </script>
-  <!-- include.js must come after page content (it injects header/footer and applies accent) -->
-  <script src="/temp/src/include.js"></script>
 </body>
 </html>
