@@ -1,312 +1,336 @@
-/* Color palette: semantic naming */
+/* ========================================
+   COLOR VARIABLES - Clear & Semantic
+   ======================================== */
+   
 :root {
-  /* Brand colors */
-  --color-brand-primary: #2d3142;
-  --color-brand-secondary: #6e6e6e;
-  --color-brand-accent: #85ef54;
-  --color-brand-dark: #45cc06;
+  /* Primary Brand Colors */
+  --gyco-primary: #2d422e;      /* Main brand color - dark blue-gray */
+  --gyco-secondary: #6e6e6e;    /* Secondary brand color - medium gray */
+  --gyco-accent: #85ef54;       /* Accent color - bright green */
+  --gyco-success: #45cc06;      /* Success/CTA color - darker green */
   
-  --color-scrollbar-track: #e0e1dd;
-  --color-scrollbar-thumb: #12920e;
-  --color-scrollbar-hover: #1cb943;
-
-  /* Text colors */
-  --color-text-default: #22223b;
-  --color-text-light: #ffffff;
-  --color-text-dark: #12920e;
-  --color-text-muted: #4f5d75;
-
-  /* Background colors */
-  --color-bg-light: #f7f7ff;
-  --color-bg-muted: #e0e1dd;
-  --color-card-bg: #e0e1dd3a;
-  --color-bg-gradient-start: var(--color-brand-primary);
-  --color-bg-gradient-end: var(--color-brand-secondary);
-
-  /* Border & shadow */
-  --color-border-default: #e1dddd;
-  --color-border-gradient-start: #0bbb05;
-  --color-border-gradient-end: #61fa87;
-  /* --shadow-light: rgba(0, 0, 0, 0.1); */
-  --shadow-light: #fefefe;
+  /* Text Colors */
+  --text-primary: #22223b;      /* Main text color */
+  --text-secondary: #6c757d;    /* Secondary text color */
+  --text-light: #ffffff;        /* Light text on dark backgrounds */
+  --text-muted: #7d6c6c;        /* Muted text color */
   
-  --shadow-strong: rgba(117, 246, 255, 0.603);
+  /* Background Colors */
+  --bg-light: #f8f9fa;          /* Light background */
+  --bg-white: #ffffff;          /* White background */
+  --bg-muted: #e9ecef;          /* Muted background */
+  
+  /* Border Colors */
+  --border-light: #dee2e6;      /* Light border color */
+  --border-primary: #2d3142;    /* Primary border color */
+  
+  /* Shadow Colors */
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-strong: rgba(0, 0, 0, 0.2);
 
-  /* Spacing scale */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.5rem;
+
+
+
+  
+
+  /* === BUTTON COLORS === */
+  --btn-primary-bg: var(--gyco-primary);
+  --btn-primary-border: var(--gyco-primary);
+  --btn-primary-hover-bg: var(--gyco-secondary);
+  --btn-primary-hover-border: var(--gyco-secondary);
+  --btn-outline-primary-color: var(--gyco-primary);
+  --btn-outline-primary-hover-bg: var(--gyco-primary);
+  --btn-outline-primary-hover-border: var(--gyco-primary);
+
+  /* === NAVBAR COLORS === */
+  --navbar-bg: var(--bg-white);
+  --navbar-text: var(--text-primary);
+  --navbar-hover-text: var(--gyco-accent);
+  --navbar-hover-underline: var(--gyco-accent);
+
+  /* === FOOTER COLORS === */
+  --footer-link-color: var(--text-secondary);
+  --footer-link-hover-color: var(--gyco-accent);
+
+  /* === HERO SECTION COLORS === */
+  --hero-bg-gradient-start: var(--gyco-primary);
+  --hero-bg-gradient-end: var(--gyco-secondary);
+  --hero-pattern-color: rgba(255,255,255,0.1);
+
+  /* === CARD COLORS === */
+  --card-border: var(--border-light);
+  --card-hover-border: var(--gyco-primary);
+  --card-hover-shadow: var(--shadow-medium);
+
+  
+  /* Scrollbar Colors */
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #85ef54;
+  --scrollbar-hover: #45cc06;
+
 }
 
 /* Base styles */
 body {
   font-family: Georgia, 'Times New Roman', serif;
-  color: var(--color-text-default);
-  background: var(--color-bg-light);
-  line-height: 1.6;
 }
 
-/* Navbar */
-.navbar {
-  background: linear-gradient(
-  135deg,
-  var(--color-bg-gradient-start) 0%,
-  var(--color-bg-gradient-end) 100%
-  );
-  box-shadow: 0 2px 20px var(--shadow-light);
-}
-.navbar-brand {
-  color: var(--color-brand-dark) !important;
-  font-weight: 700;
-  font-size: 1.5rem;
-}
-.nav-link {
-  color: var(--color-text-light) !important;
-  transition: color 0.3s;
-}
-.nav-link:hover {
-  color: var(--color-brand-accent) !important;
+
+
+
+
+/* ========================================
+   BOOTSTRAP OVERRIDES - Minimal Customization
+   ======================================== */
+
+/* Override Bootstrap primary color */
+.bg-primary {
+  background-color: var(--gyco-primary) !important;
 }
 
-/* Hero */
+.text-primary {
+  color: var(--gyco-primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--gyco-primary) !important;
+  border-color: var(--gyco-primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--gyco-secondary) !important;
+  border-color: var(--gyco-secondary) !important;
+}
+
+.btn-outline-primary {
+  color: var(--gyco-primary) !important;
+  border-color: var(--gyco-primary) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--gyco-primary) !important;
+  border-color: var(--gyco-primary) !important;
+}
+
+/* ========================================
+   CUSTOM COMPONENTS - Minimal Additions
+   ======================================== */
+
+/* Hero Section - Enhanced with subtle pattern */
 .hero {
-  background: linear-gradient(
-  135deg,
-  var(--color-bg-gradient-start) 0%,
-  var(--color-bg-gradient-end) 100%
-  );
-  color: var(--color-text-light);
-  padding: 10% 0;
-  text-align: center;
   position: relative;
+  background: linear-gradient(135deg, var(--gyco-primary) 0%, var(--gyco-secondary) 100%);
 }
+
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+  background-size: 20px 20px;
   opacity: 0.3;
 }
-.hero-content { position: relative; z-index: 1; }
-.hero .btn-primary {
-  color: var(--color-text-default);
-  box-shadow: 0 4px 15px var(--shadow-light);
-  background: var(--color-brand-accent);
-  border: none;
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: 30px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1px;
-  transition: transform 0.3s;
-}
-.hero .btn-primary:hover {
-  color: var(--color-text-light);
-  box-shadow: 0 8px 25px var(--shadow-strong);
-  transform: translateY(-3px);
-  background: var(--color-brand-secondary);
-  /* mark--- */
+
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 
-/* Stats */
-.stats {
-  background: linear-gradient(
-  135deg,
-  var(--color-text-light) 0%,
-  var(--color-bg-muted) 100%
-  );
-  padding: 6% 0;
-}
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--color-brand-dark);
-}
-.stat-label {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
-/* Custom button for cards and sections */
-.btn-custom {
-  background: var(--color-brand-accent) !important;
-  border: none;
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: 30px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 15px var(--shadow-light);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.btn-custom:hover {
-  color: var(--color-text-light) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px var(--shadow-strong);
-  background: var(--color-brand-secondary) !important;
-}
-
-
-.section-card {
-  background: var(--color-card-bg);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: all 0.4s ease;
-  height: 100%;
-  border: 1px solid var(--color-border-default);
-  overflow: hidden;
-}
-
-.section-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  border-color: var(--color-border-gradient-start);
-}
-
-.section-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-border-gradient-start) 0%, var(--color-border-gradient-end) 100%);
-  transform: scaleX(0);
+/* Stats Section - Enhanced styling */
+.stat-item {
+  padding: 1rem;
   transition: transform 0.3s ease;
 }
 
-.section-card:hover::before {
-  transform: scaleX(1);
+.stat-item:hover {
+  transform: translateY(-5px);
 }
 
-.card-icon {
-  font-size: 3.5rem;
-  color: var(--color-border-gradient-start);
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Sections */
-.section-title {
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--color-brand-primary);
-  position: relative;
-  margin-bottom: var(--space-md);
-}
-.section-title::after {
-  content: "";
-  position: absolute;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4rem;
-  height: 3px;
-  background: var(--color-brand-accent);
-}
-
-/* Cards */
-.card-custom {
-  position: relative;
-  border: 1px solid var(--color-border-default);
-  border-radius: 1.25rem;
-  box-shadow: 0 10px 30px var(--shadow-light);
-  overflow: hidden;
-  transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
-}
-.card-custom:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px var(--shadow-strong);
-  border-color: var(--color-brand-accent);
-}
-.card-custom::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--color-brand-accent);
-  transform: scaleX(0);
-  transition: transform 0.3s;
-}
-.card-custom:hover::before {
-  transform: scaleX(1);
-}
-.card-icon {
-  font-size: 3rem;
-  color: var(--color-brand-accent);
-  margin-bottom: var(--space-md);
-}
-
-/* Footer */
-.footer {
-  background: linear-gradient(
-  135deg,
-  var(--color-bg-gradient-start) 0%,
-  var(--color-bg-gradient-end) 100%
-  );
-  color: var(--color-text-light);
-  padding: 4% 0;
-}
-.footer h5 {
-  color: var(--color-brand-dark);
-}
-.footer a {
-  font-size: 1.2rem;
-  color: var(--color-text-light);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.footer i {
-  font-size: 2.0rem;
-  padding: 0.5rem 0.5rem;
-}
-.footer a:hover {
-  color: var(--color-brand-accent);
-}
-
-/* .social-links a {
-  color: var(--white);
-  font-size: 1.8rem;
-  margin: 0 15px;
+/* Card Hover Effects */
+.hover-card {
   transition: all 0.3s ease;
-  text-decoration: none;
+  border: 1px solid var(--border-light);
+}
+
+.hover-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px var(--shadow-medium) !important;
+  border-color: var(--gyco-primary);
+}
+
+/* Card Icon Styling */
+.card-icon {
+  transition: transform 0.3s ease;
+}
+
+.hover-card:hover .card-icon {
+  transform: scale(1.1);
+}
+
+/* ========================================
+   NAVBAR ENHANCEMENTS
+   ======================================== */
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--gyco-accent) !important;
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--gyco-accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   FOOTER ENHANCEMENTS
+   ======================================== */
+
+footer a {
+  transition: all 0.5s ease;
   display: inline-block;
 }
 
-.social-links a:hover {
-  color: var(--color-border-gradient-start);
-  transform: translateY(-3px);
-}
-  */
-/* Utility */
-.text-center { text-align: center !important; }
-.mb-4 { margin-bottom: var(--space-lg) !important; }
-.mb-5 { margin-bottom: 3rem !important; }
-@media (max-width: 768px) {
-  .hero { padding: 15% 0; }
-  .stat-number { font-size: 2rem; }
-  .section-title { font-size: 1.75rem; }
+footer a:hover {
+  color: var(--gyco-accent) !important;
 }
 
-/* Elegant scrollbar */
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-scrollbar-track);
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-scrollbar-thumb);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-scrollbar-hover);
+  background: var(--scrollbar-hover);
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 0 !important;
+  }
+  
+  .stat-number {
+    font-size: 2rem !important;
+  }
+  
+  .card-icon {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero .lead {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus styles for better accessibility */
+.btn:focus,
+.nav-link:focus,
+a:focus {
+  outline: 2px solid var(--gyco-accent);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --gyco-primary: #000000;
+    --gyco-secondary: #333333;
+    --gyco-accent: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hover-card:hover {
+    transform: none;
+  }
+  
+  .stat-item:hover {
+    transform: none;
+  }
 }
