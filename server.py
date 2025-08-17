@@ -37,7 +37,7 @@ if __name__ == "__main__":
     app.run(port=8080)
 
 ## Path specification
-# '/{path}' for absolute path from the root
+# '/{path}' for absolute path from the root (static folder)
 # './{path}' or '../{path}' for relative path from current directory of the file (pwd).
 
 
