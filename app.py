@@ -10,6 +10,29 @@ def serve_file(filename):
 if __name__ == "__main__":
     app.run(port=8080)
 
+
+
+
+
+# app = Flask(__name__)
+
+# @app.route("/")
+# def index():
+#     return send_from_directory("public", "index.html")
+
+# @app.route("/public/<path:filename>")
+# def serve_public(filename):
+#     return send_from_directory("public", filename)
+
+# @app.route("/src/<path:filename>")
+# def serve_src(filename):
+#     return send_from_directory("src", filename)
+
+# if __name__ == "__main__":
+#     app.run(port=8080)
+
+
+
 ## Path specification
 # '/{path}' for absolute path from the root
 # './{path}' or '../{path}' for relative path from current directory of the file (pwd).

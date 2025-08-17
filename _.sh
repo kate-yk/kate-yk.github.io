@@ -17,6 +17,9 @@ CONFIG="General configuration for '${TITLE}'" # configuration title
 MARKER="?GENERAL;" # Check if the configuration script exists in ~/.bashrc
 SCRIPT=$(cat <<'EOF'
 
+
+
+
 # ~/.bashrc
 
 
@@ -56,6 +59,16 @@ CYAN_RG='\033[0;36m'
 WHITE_RG='\033[0;37m'
 ##########################
 EOC='\033[0m' # End Of Coloring
+
+
+
+
+
+
+
+
+
+
 ##################################< USAGE >#####################################
 # echo "Pass: $(TEST_PASS 'All tests passed successfully!')."
 # echo "Error: $(TEST_FAIL 'aaaa')."
@@ -552,10 +565,10 @@ function on_pvm {
         echo $url
         ver=$(echo "$ver" | awk -F. '{print $1 $2}')                                        # version modification e.g. "3.12.2" to "312"
         INSTRACT "$url" "python.zip" "$PWD/ext/Python$ver"
-        echo -e "python$ver.zip\n.\nimport site" > "$PWD/ext/Python$ver/python$ver._pth"   # enable `Lib/site-packages`
-        curl -o "$PWD/ext/get-pip.py" "https://bootstrap.pypa.io/get-pip.py"             # PIP script
-        ${PYTHON_DIR//\{VERSION\}/$ver}/python "$PWD/ext/get-pip.py"         # Package Installer for Python
-        rm "$PWD/ext/get-pip.py"                                                         # clean PIP script
+        echo -e "python$ver.zip\n.\nimport site" > "$PWD/ext/Python$ver/python$ver._pth"    # enable `Lib/site-packages`
+        curl -o "$PWD/ext/get-pip.py" "https://bootstrap.pypa.io/get-pip.py"                # PIP script
+        ${PYTHON_DIR//\{VERSION\}/$ver}/python "$PWD/ext/get-pip.py"                        # Package Installer for Python
+        rm "$PWD/ext/get-pip.py"                                                            # clean PIP script
         ${PYTHON_DIR//\{VERSION\}/$ver}/Scripts/pip install tox                             # test automation (by virtualenv) 
         ${PYTHON_DIR//\{VERSION\}/$ver}/Scripts/pip install poetry                          # [1] build automation (by virtualenv, setuptools) 
         ${PYTHON_DIR//\{VERSION\}/$ver}/Scripts/pip install pipreqs
@@ -580,6 +593,58 @@ function SETUP_PYTHON {
     poetry --version
     tox --version
     pipreqs --version
+}
+
+################################################################################
+#                                   ?NODEJS;
+################################################################################
+#################################< VERSION >####################################
+NODE_VERSIONS=("v18.12.0" "v20.9.0")
+NODE_VERSIONS=("v20.9.0")
+NODE_VERSIONS=("v18.12.0")
+##################################< USAGE >#####################################
+# ### language system setup ... (1)
+# on_v8
+###############################################################################
+NODE_URL="https://nodejs.org/dist/{VERSION}/node-{VERSION}-win-x64.zip"
+function on_v8 {
+    local NODE_DIR="$PWD/ext/node-{VERSION}-win-x64"
+    # NODE checkup (positive)
+    if exists "$PWD/ext" "node"; then
+        echo "Notice: Directory $(USRPROMPT ''${NODE_DIR}' ')already exists. NODE has been setup..."
+        # NODE setup
+        SETUP_NODE
+        return
+    fi
+    # NODE install
+    for ver in "${NODE_VERSIONS[@]}"; do
+        url="${NODE_URL//\{VERSION\}/$ver}"
+        INSTRACT "$url" "node.zip" "$PWD/ext"
+    done
+    # NODE checkup (negative)
+    if [[ ! -d "$PWD/ext" ]]; then
+        echo "Error: $(TEST_FAIL 'There is no '$PWD/ext' found.')"
+        return
+    fi
+    # NODE setup
+    SETUP_NODE
+}
+function SETUP_NODE {
+    local NODE_DIR="$PWD/ext/node-{VERSION}-win-x64"
+    for ver in "${NODE_VERSIONS[@]}"; do
+        # echo "${NODE_DIR//\{VERSION\}/$ver}:${PATH}"
+        export PATH="${NODE_DIR//\{VERSION\}/$ver}:${PATH}"
+    done
+    echo -e "\n------------------------------------------------------------"
+    echo -e "NODEJS"
+    echo -e "------------------------------------------------------------\n"
+    echo -e "Node.js version: \t\t\t$(node -v)"
+    echo -e "Node Package Manager (npm) version: \t$(npm -v)"
+    echo -e "Node Package eXecutor (npx) version: \t$(npx -v)"
+    # < npx >
+    # to execute Node.js binaries or scripts directly from the 
+    # command line without globally installing them
+    echo -e "------------------------------------------------------------\n"
 }
 
 ###############################################################################
@@ -661,6 +726,8 @@ function SETUP_GRADLE {
 }
 
 
+
+
 ################################################################################
 #                                   ?KOTLIN;
 ################################################################################
@@ -713,20 +780,23 @@ function SETUP_KOTLIN {
 }
 
 
+
+
 TEMP=$PWD
-
-echo $PWD
 cd ..
-echo $PWD
 
+# JAVA
+on_jvm
 on_kt
 on_gradle
+# Python
 on_pvm
+# Node.js
+on_v8
 
 
-echo $PWD
 cd $TEMP
-echo $PWD
+
 
 
 EOF

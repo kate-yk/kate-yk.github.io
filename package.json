@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "sass:shell": "sass --watch static/src/scss/custom.scss:static/src/css/custom.css --source-map --load-path=./node_modules",
+    "sass:compile": "sass static/src/scss/custom.scss:static/src/css/custom.min.css --style=compressed --no-source-map --load-path=./node_modules"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.7"
+  },
+  "devDependencies": {
+    "sass": "^1.77.6"
+  }
+}

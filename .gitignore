@@ -1,3 +1,10 @@
+ext/
+*.zip
+node-compile-cache/
+package-lock.json
+package.bck.json
+
+
 # Logs
 logs
 *.log
