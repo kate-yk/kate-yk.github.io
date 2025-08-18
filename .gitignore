@@ -1,3 +1,21 @@
+
+################# System related
+ext/
+*.zip
+*.DS_Store
+node-compile-cache/
+package-lock.json
+package.bck.json
+
+
+################# custom
+JSreact-sample
+JSbootstrap-hub
+
+
+
+
+
 # Logs
 logs
 *.log

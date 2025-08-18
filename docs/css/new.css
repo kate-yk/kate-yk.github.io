@@ -1,0 +1,81 @@
+/* =========================
+  Global Variables
+  ========================= */
+:root { 
+  --accent: #3dfd0d; 
+  /* optional for immediate fallback: */
+  --bs-primary: var(--accent);
+}
+ 
+ /* =========================
+   Floating Action Button
+   ========================= */
+ .fab { 
+  position: fixed; 
+  right: 1.25rem; 
+  bottom: 1.25rem; 
+  z-index: 1050; 
+  width: 56px; 
+  height: 56px; 
+  border-radius: 50%; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  box-shadow: 0 6px 18px rgba(13,110,253,.12); 
+  /* background: var(--accent);  */
+  /* color: #fff;  */
+  border: none; 
+ }
+ 
+ /* =========================
+   Card Styles
+   ========================= */
+ .card-img-hero { 
+  width: 100%; 
+  height: 360px; 
+  object-fit: cover; 
+  border-radius: .5rem; 
+ }
+ 
+ .card-hover:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 10px 30px rgba(0,0,0,.06); 
+ }
+ 
+ .card-img-top { 
+  object-fit: cover; 
+  height: 160px; 
+ }
+ 
+ .tag-chip { 
+  display: inline-block; 
+  margin-right: .35rem; 
+  margin-bottom: .25rem; 
+  padding: .25rem .5rem; 
+  border-radius: .35rem; 
+  background: #f1f3f5; 
+  font-size: .85rem; 
+  color: #333; 
+ }
+ 
+ /* =========================
+   Hero Section
+   ========================= */
+ .hero { 
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 60%); 
+  border-radius: .5rem; 
+  padding: 3rem; 
+ }
+ 
+ .hero-cta .btn { 
+  min-width: 160px; 
+ }
+ 
+ /* =========================
+   Accessibility Focus Outline
+   ========================= */
+ .focus-outline:focus { 
+  outline: 3px solid rgba(13,110,253,0.18); 
+  outline-offset: 2px; 
+ }
+ 

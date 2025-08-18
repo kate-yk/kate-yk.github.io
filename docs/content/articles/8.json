@@ -1,0 +1,12 @@
+
+{
+"id": 8,
+"category": "science",
+"tags": ["space", "astronomy"],
+"image": "https://picsum.photos/seed/2/800/450",
+"alt": "Telescope observing nebula",
+"title": "The Quest for Exoplanets",
+"description": "A look into the technology and methods used to find planets outside our solar system.",
+"author": "Dr. Eleanor Vance",
+"date": "Aug 10, 2025"
+}

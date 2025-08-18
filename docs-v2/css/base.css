@@ -1,0 +1,336 @@
+/* ========================================
+   COLOR VARIABLES - Clear & Semantic
+   ======================================== */
+   
+:root {
+  /* Primary Brand Colors */
+  --gyco-primary: #2d422e;      /* Main brand color - dark blue-gray */
+  --gyco-secondary: #6e6e6e;    /* Secondary brand color - medium gray */
+  --gyco-accent: #85ef54;       /* Accent color - bright green */
+  --gyco-success: #45cc06;      /* Success/CTA color - darker green */
+  
+  /* Text Colors */
+  --text-primary: #22223b;      /* Main text color */
+  --text-secondary: #6c757d;    /* Secondary text color */
+  --text-light: #ffffff;        /* Light text on dark backgrounds */
+  --text-muted: #7d6c6c;        /* Muted text color */
+  
+  /* Background Colors */
+  --bg-light: #f8f9fa;          /* Light background */
+  --bg-white: #ffffff;          /* White background */
+  --bg-muted: #e9ecef;          /* Muted background */
+  
+  /* Border Colors */
+  --border-light: #dee2e6;      /* Light border color */
+  --border-primary: #2d3142;    /* Primary border color */
+  
+  /* Shadow Colors */
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-strong: rgba(0, 0, 0, 0.2);
+
+
+
+
+  
+
+  /* === BUTTON COLORS === */
+  --btn-primary-bg: var(--gyco-primary);
+  --btn-primary-border: var(--gyco-primary);
+  --btn-primary-hover-bg: var(--gyco-secondary);
+  --btn-primary-hover-border: var(--gyco-secondary);
+  --btn-outline-primary-color: var(--gyco-primary);
+  --btn-outline-primary-hover-bg: var(--gyco-primary);
+  --btn-outline-primary-hover-border: var(--gyco-primary);
+
+  /* === NAVBAR COLORS === */
+  --navbar-bg: var(--bg-white);
+  --navbar-text: var(--text-primary);
+  --navbar-hover-text: var(--gyco-accent);
+  --navbar-hover-underline: var(--gyco-accent);
+
+  /* === FOOTER COLORS === */
+  --footer-link-color: var(--text-secondary);
+  --footer-link-hover-color: var(--gyco-accent);
+
+  /* === HERO SECTION COLORS === */
+  --hero-bg-gradient-start: var(--gyco-primary);
+  --hero-bg-gradient-end: var(--gyco-secondary);
+  --hero-pattern-color: rgba(255,255,255,0.1);
+
+  /* === CARD COLORS === */
+  --card-border: var(--border-light);
+  --card-hover-border: var(--gyco-primary);
+  --card-hover-shadow: var(--shadow-medium);
+
+  
+  /* Scrollbar Colors */
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #85ef54;
+  --scrollbar-hover: #45cc06;
+
+}
+
+/* Base styles */
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+
+
+
+
+/* ========================================
+   BOOTSTRAP OVERRIDES - Minimal Customization
+   ======================================== */
+
+/* Override Bootstrap primary color */
+.bg-primary {
+  background-color: var(--gyco-primary) !important;
+}
+
+.text-primary {
+  color: var(--gyco-primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--gyco-primary) !important;
+  border-color: var(--gyco-primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--gyco-secondary) !important;
+  border-color: var(--gyco-secondary) !important;
+}
+
+.btn-outline-primary {
+  color: var(--gyco-primary) !important;
+  border-color: var(--gyco-primary) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--gyco-primary) !important;
+  border-color: var(--gyco-primary) !important;
+}
+
+/* ========================================
+   CUSTOM COMPONENTS - Minimal Additions
+   ======================================== */
+
+/* Hero Section - Enhanced with subtle pattern */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, var(--gyco-primary) 0%, var(--gyco-secondary) 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+  background-size: 20px 20px;
+  opacity: 0.3;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stats Section - Enhanced styling */
+.stat-item {
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Card Hover Effects */
+.hover-card {
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+}
+
+.hover-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px var(--shadow-medium) !important;
+  border-color: var(--gyco-primary);
+}
+
+/* Card Icon Styling */
+.card-icon {
+  transition: transform 0.3s ease;
+}
+
+.hover-card:hover .card-icon {
+  transform: scale(1.1);
+}
+
+/* ========================================
+   NAVBAR ENHANCEMENTS
+   ======================================== */
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--gyco-accent) !important;
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--gyco-accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   FOOTER ENHANCEMENTS
+   ======================================== */
+
+footer a {
+  transition: all 0.5s ease;
+  display: inline-block;
+}
+
+footer a:hover {
+  color: var(--gyco-accent) !important;
+}
+
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 0 !important;
+  }
+  
+  .stat-number {
+    font-size: 2rem !important;
+  }
+  
+  .card-icon {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero .lead {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+/* Focus styles for better accessibility */
+.btn:focus,
+.nav-link:focus,
+a:focus {
+  outline: 2px solid var(--gyco-accent);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --gyco-primary: #000000;
+    --gyco-secondary: #333333;
+    --gyco-accent: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hover-card:hover {
+    transform: none;
+  }
+  
+  .stat-item:hover {
+    transform: none;
+  }
+}

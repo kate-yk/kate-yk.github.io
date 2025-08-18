@@ -51,7 +51,6 @@ fi
 
 # Check if virtual environment already exists
 if [ -d "venv" ]; then
-
     echo "Debug: 'venv' directory already exists. Please remove it before creating a new virtual environment"
     echo "==============================================================="
     echo "Notice: (OR) Run the following command to activate the virtual environment:"
