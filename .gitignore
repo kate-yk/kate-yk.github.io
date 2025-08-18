@@ -5,9 +5,14 @@ package-lock.json
 package.bck.json
 
 
-
+#################
 JSreact-sample
 JSbootstrap-hub
+
+
+*.DS_Store
+
+
 
 # Logs
 logs
