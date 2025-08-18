@@ -41,6 +41,7 @@ elif [[ "$OSTYPE" == "msys"* || "$OSTYPE" == "cygwin"* || "$OSTYPE" == "win32"* 
     cd $TEMP
 fi
 
+    
 
 
 
@@ -61,7 +62,7 @@ if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "msys"* || "$OSTYPE" == "cygwin"* || "$OSTYPE" == "win32"* ]]; then
     # Windows (Git Bash assumed)
     echo -e "To enable Sass compiler use:"
-    echo -e "  $(USRPROMPT 'on_v8 && clear')"
+    echo -e "  $(USRPROMPT 'TEMP=$PWD && cd .. && on_v8 && cd $TEMP && clear')"
     echo -e "To run Sass compiler as runtime use:"
     echo -e "  $(USRPROMPT 'sass --watch static/src/scss/custom.scss:static/src/css/custom.css --source-map --load-path=./node_modules')"
     echo -e "To run Sass compiler use:"
