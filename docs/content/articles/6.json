@@ -1,0 +1,12 @@
+
+{
+"id": 6,
+"category": "art",
+"tags": ["painting", "history"],
+"image": "https://picsum.photos/seed/6/800/450",
+"alt": "Impressionist painting in a museum",
+"title": "The Evolution of Impressionism",
+"description": "A journey through the lives and works of the movement's most influential artists.",
+"author": "Dr. Ben Carter",
+"date": "Aug 12, 2025"
+}
