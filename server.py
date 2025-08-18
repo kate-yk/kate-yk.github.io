@@ -76,7 +76,7 @@ def create_app(static_root: str) -> Flask:
     def index():
         # Serve the project's public/index.html as the site entrypoint.
         # If that file doesn't exist, Flask will raise a 404.
-        return app.send_static_file("index.html")
+        # return app.send_static_file("index.html")
         return app.send_static_file("public/index.html")
 
     @app.route("/<path:filename>")
@@ -113,6 +113,21 @@ def create_app(static_root: str) -> Flask:
         return "File not found", 404
 
     return app
+
+
+
+def create_build_app(static_root: str) -> Flask:
+    app = Flask(__name__, static_folder=static_root)
+    @app.route("/")
+    def index():
+        return send_from_directory(static_root, "index.html")
+    @app.route("/<path:filename>")
+    def serve_file(filename):
+        return send_from_directory(static_root, filename) ## root path is 'static', 
+    return app
+
+
+
 
 
 def build_project(project_dir: str, out_dir: Optional[str] = None) -> str:
@@ -227,6 +242,14 @@ def main(argv: Optional[list] = None) -> int:
     if args.build:
         # Build and exit
         build_project(args.project_dir, out_dir=args.out)
+        project_basename = os.path.basename(os.path.normpath(args.project_dir))
+        build_dir = os.path.abspath(args.out) if args.out else os.path.abspath(f"build-{project_basename}")
+        app = create_build_app(build_dir)
+        try:
+            # Note: in production, do not use Flask's built-in server.
+            app.run(port=args.port)
+        except KeyboardInterrupt:
+            print("Server interrupted (KeyboardInterrupt).")
         return 0
 
     # Otherwise, run the Flask development server for convenience.
