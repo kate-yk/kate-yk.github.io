@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="./favicon.ico"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="apple-touch-icon" href="./logo192.png"/>
+  <!-- Frameworks -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"> -->
+  <!-- Normalize browser defaults -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> -->
+  <!-- Font Awesome icons -->
+  <!-- <link href="/css/custom.css" rel="stylesheet"> -->
+  <!-- Bootstrap core -->
+  <link rel="stylesheet" href="css/bootstrap.min.css"><!-- Local Bootstrap -->
+  
+  <style>
+    /* Small, focused hover styles for social buttons */
+    .social-btn {
+      transition: transform .15s ease, background-color .15s ease, color .15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+    .social-btn svg { width: 1rem; height: 1rem; }
+
+    /* Common hover: lift and white icon/text */
+    .social-btn:hover {
+      transform: translateY(-3px);
+      color: #fff !important;
+    }
+
+    /* Platform colors on hover */
+    .social-btn[data-platform="twitter"]:hover   { background: #1DA1F2; border-color: #1DA1F2; }
+    .social-btn[data-platform="facebook"]:hover  { background: #1877F2; border-color: #1877F2; }
+    .social-btn[data-platform="instagram"]:hover { background: #E1306C; border-color: #E1306C; }
+    .social-btn[data-platform="youtube"]:hover   { background: #FF0000;  border-color: #FF0000; }
+
+    /* Visually-hidden text stays accessible for screen readers */
+    .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  </style>
+  <title>Example</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- loader: relative path, type=module -->
+  <script type="module" src="js/index.js"></script>
+  <!-- optionally local bootstrap JS (relative) -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
