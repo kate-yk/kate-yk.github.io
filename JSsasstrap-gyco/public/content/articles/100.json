@@ -1,0 +1,11 @@
+{
+"id": 100,
+"category": "food",
+"tags": ["recipes", "baking"],
+"image": "https://picsum.photos/seed/3/800/450",
+"alt": "Freshly baked sourdough loaf",
+"title": "On a Gloomy and Windy Day",
+"description": "Demystifying the process of creating your own sourdough starter and baking your first loaf.",
+"author": "Maria Sanchez",
+"date": "Jul 25, 2025"
+}
