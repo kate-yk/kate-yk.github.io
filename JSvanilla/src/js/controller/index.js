@@ -9,8 +9,11 @@ export default function initIndex() {
   Util.renderHeading('Welcome — Home Page');
   Util.renderParagraph('This content was rendered by core-module.js and invoked from pages/index.js.');
 
-  // Load footer fragment
-  Util.loadFragment('#footer', './footer.html');
+  // Load footer fragment and then setup notification system
+  Util.loadFragment('#footer', './footer.html').then(() => {
+    // Setup notification system after footer is loaded
+    Util.setupNotificationSystem();
+  });
   
   Util.setupYearElement();
 }

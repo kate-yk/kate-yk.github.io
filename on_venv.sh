@@ -21,6 +21,8 @@ elif [[ "$OSTYPE" == "msys"* || "$OSTYPE" == "cygwin"* || "$OSTYPE" == "win32"* 
     cd ..
     if command -v on_pvm &>/dev/null; then
         on_pvm
+    elif command -v python --version &>/dev/null; then
+        echo "You have your own python already..!"
     else
         echo "Error: 'on_pvm' command is not found, reach out to the owner of the project"
         echo "Notice: Jaehoon Song: manual20151276@gmail.com."

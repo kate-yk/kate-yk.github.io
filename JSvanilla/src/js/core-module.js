@@ -213,3 +213,181 @@ export function setupYearElement() {
     yearElement.textContent = new Date().getFullYear();
   }
 }
+
+/**
+ * Setup notification system for links with href="#".
+ * Shows a Bootstrap toast notification when such links are clicked.
+ * @returns {void}
+ * 
+ * @example
+ * // Basic usage - setup notifications for all href="#" links
+ * setupNotificationSystem();
+ * 
+ * // Use in page initialization
+ * export default function initPage() {
+ *   renderHeading('Welcome');
+ *   
+ *   // Setup notification system for coming soon links
+ *   setupNotificationSystem();
+ * }
+ * 
+ * // HTML structure needed for Bootstrap toast:
+ * // <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+ * // The function will create this container if it doesn't exist
+ * 
+ * // Links that should show notifications need both:
+ * // 1. class="link-notify" 
+ * // 2. href="#"
+ */
+export function setupNotificationSystem() {
+  console.log('setupNotificationSystem called'); // Debug log
+  
+  // Create notification container if it doesn't exist
+  let notificationContainer = document.querySelector('.notification-container');
+  if (!notificationContainer) {
+    notificationContainer = document.createElement('div');
+    notificationContainer.className = 'notification-container';
+    notificationContainer.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      max-width: 350px;
+    `;
+    document.body.appendChild(notificationContainer);
+    console.log('Created notification container'); // Debug log
+  }
+
+  // Find all links with both link-notify class and href="#"
+  const comingSoonLinks = document.querySelectorAll('a.link-notify[href="#"]');
+  console.log('Found coming soon links:', comingSoonLinks.length); // Debug log
+  
+  comingSoonLinks.forEach((link, index) => {
+    console.log(`Setting up link ${index}:`, link.textContent || link.title); // Debug log
+    link.addEventListener('click', function(e) {
+      console.log('Link clicked:', this.textContent || this.title); // Debug log
+      e.preventDefault();
+      showNotification('Coming Soon', 'This feature is not available yet. Stay tuned!', 'primary');
+    });
+  });
+}
+
+/**
+ * Show a Bootstrap toast notification.
+ * @param {string} title - The notification title
+ * @param {string} message - The notification message
+ * @param {string} [type] - The notification type ('info', 'success', 'warning', 'danger')
+ * @returns {void}
+ * 
+ * @example
+ * // Show a simple notification
+ * showNotification('Success', 'Operation completed successfully');
+ * 
+ * // Show different types of notifications
+ * showNotification('Warning', 'Please check your input', 'warning');
+ * showNotification('Error', 'Something went wrong', 'danger');
+ * 
+ * // Show coming soon notification
+ * showNotification('Coming Soon', 'This feature will be available soon!');
+ */
+export function showNotification(title, message, type = 'info') {
+  console.log('showNotification called:', title, message, type); // Debug log
+  
+  // Create notification container if it doesn't exist
+  let notificationContainer = document.querySelector('.notification-container');
+  if (!notificationContainer) {
+    notificationContainer = document.createElement('div');
+    notificationContainer.className = 'notification-container';
+    notificationContainer.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      max-width: 350px;
+    `;
+    document.body.appendChild(notificationContainer);
+  }
+
+  // Create unique ID for the notification
+  const notificationId = 'notification-' + Date.now();
+  
+  // Determine colors based on type - using your custom green for primary
+  let bgColor, textColor;
+  
+  switch(type) {
+    case 'success':
+      bgColor = '#28a745'; // Bootstrap success green
+      textColor = '#ffffff';
+      break;
+    case 'warning':
+      bgColor = '#ffc107'; // Bootstrap warning yellow
+      textColor = '#212529'; // Dark text for light background
+      break;
+    case 'danger':
+      bgColor = '#dc3545'; // Bootstrap danger red
+      textColor = '#ffffff';
+      break;
+    case 'primary':
+      bgColor = '#198754'; // Your custom green from --bs-primary
+      textColor = '#ffffff';
+      break;
+    default: // info
+      bgColor = '#17a2b8'; // Bootstrap info blue
+      textColor = '#ffffff';
+      break;
+  }
+  
+  console.log('Notification colors:', { bgColor, textColor, type }); // Debug log
+
+  // Create notification HTML
+  const notificationHTML = `
+    <div id="${notificationId}" class="notification" style="
+      background: ${bgColor};
+      color: ${textColor};
+      padding: 16px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      max-width: 100%;
+    ">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+        <strong style="font-size: 16px; margin: 0;">${title}</strong>
+        <button onclick="document.getElementById('${notificationId}').remove()" style="
+          background: none;
+          border: none;
+          color: ${textColor};
+          font-size: 18px;
+          cursor: pointer;
+          padding: 0;
+          line-height: 1;
+        ">&times;</button>
+      </div>
+      <div style="font-size: 14px; margin: 0; line-height: 1.4;">${message}</div>
+    </div>
+  `;
+
+  // Add notification to container
+  notificationContainer.insertAdjacentHTML('beforeend', notificationHTML);
+  
+  // Get the notification element and animate it in
+  const notificationElement = document.getElementById(notificationId);
+  
+  // Trigger animation
+  setTimeout(() => {
+    notificationElement.style.transform = 'translateX(0)';
+  }, 10);
+  
+  // Auto-remove after 4 seconds
+  setTimeout(() => {
+    if (notificationElement && notificationElement.parentNode) {
+      notificationElement.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        if (notificationElement && notificationElement.parentNode) {
+          notificationElement.remove();
+        }
+      }, 300);
+    }
+  }, 4000);
+}
