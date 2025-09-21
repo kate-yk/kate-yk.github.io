@@ -1,11 +1,11 @@
 {
-"id": 4,
-"category": "health",
-"tags": ["fitness", "nutrition"],
-"image": "https://picsum.photos/seed/4/800/450",
-"alt": "Person running on a trail",
-"title": "Optimizing Your Workout for Maximum Results",
-"description": "Tips and strategies for creating an effective fitness routine and meal plan.",
-"author": "Chris Johnson",
-"date": "Aug 5, 2025"
+  "id": 4,
+  "category": "community",
+  "tags": ["volunteering", "music"],
+  "image": "images/IMG_2077.jpg",
+  "alt": "GYCO Performance at Woodruff Park",
+  "title": "Celebrating Volunteer Excellence in 2024",
+  "description": "A look back at GYCO's 2024 volunteer journey - from inspiring performances to meaningful projects with refugees, veterans, and local communities.",
+  "author": "Eugeanah Thov",
+  "date": "Dec 31, 2024"
 }

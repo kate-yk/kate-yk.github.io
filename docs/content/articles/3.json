@@ -1,11 +1,11 @@
 {
-  "id": 3,
-  "category": "health",
-  "tags": ["wellness"],
-  "image": "https://picsum.photos/seed/3/800/450",
-  "alt": "Mindfulness Thumbnail",
-  "title": "Mindfulness for Student Stress",
-  "description": "Daily practices to reduce anxiety during exams.",
-  "author": "Dr. Kim",
-  "date": "Jul 14, 2025"
+"id": 3,
+"category": "food",
+"tags": ["recipes", "baking"],
+"image": "images/IMG_2076.jpg",
+"alt": "Freshly baked sourdough loaf",
+"title": "Heartfelt Gratitude from GYCO",
+"description": "?????????????your own sourdough starter and baking your first loaf.",
+"author": "Maria Sanchez",
+"date": "Jul 25, 2025"
 }

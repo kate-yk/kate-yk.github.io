@@ -1,11 +1,11 @@
 {
-  "id": 2,
-  "category": "education",
-  "tags": ["community", "career", "wellness"],
-  "image": "https://picsum.photos/seed/2/800/450",
-  "alt": "Coding Bootcamp Thumbnail",
-  "title": "Community Coding Bootcamp Recap",
-  "description": "Highlights and student projects from our latest cohort.",
-  "author": "Maya",
-  "date": "Jul 25, 2025"
+"id": 2,
+"category": "food",
+"tags": ["recipes", "baking"],
+"image": "images/IMG_2070.jpg",
+"alt": "Freshly baked sourdough loaf",
+"title": "When GYCO Meets CEO...",
+"description": "?????????????your own sourdough starter and baking your first loaf.",
+"author": "Maria Sanchez",
+"date": "Jul 25, 2025"
 }
