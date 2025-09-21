@@ -1,11 +1,11 @@
 {
-"id": 13,
-"category": "food",
-"tags": ["recipes", "baking"],
-"image": "images/IMG_2077.jpg",
-"alt": "2024: Year In Review",
-"title": "Heartfelt Gratitude from GYCO",
-"description": "?????????????your own sourdough starter and baking your first loaf.",
-"author": "Maria Sanchez",
-"date": "Jul 25, 2025"
+  "id": 13,
+  "category": "community",
+  "tags": ["volunteering", "music"],
+  "image": "images/IMG_2077.jpg",
+  "alt": "GYCO Performance at Woodruff Park",
+  "title": "Celebrating Volunteer Excellence in 2024",
+  "description": "A look back at GYCO's 2024 volunteer journey - from inspiring performances to meaningful projects with refugees, veterans, and local communities.",
+  "author": "Eugeanah Thov",
+  "date": "Dec 31, 2024"
 }
