@@ -53,6 +53,11 @@ Follow the steps below to start off.
 
 **Note**: when you type-in, you can `tap` so the bash can automatically generate your space (folder) name.
 
+  
+- GYCO website: `https://kate-yk.github.io/`
+-  - GYCO Website: `http://localhost:8080/`
+
+
 ## Table of Contents
 - [GYCO Institution Website by Kate](#gyco-institution-website-by-kate)
   - [Project Overview](#project-overview)
