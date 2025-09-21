@@ -1,12 +1,11 @@
-
 {
 "id": 5,
-"category": "travel",
-"tags": ["adventure", "budget", "wellness"],
-"image": "https://picsum.photos/seed/5/800/450",
-"alt": "Backpacker looking at a mountain vista",
-"title": "Budget-Friendly Backpacking Through Southeast Asia",
-"description": "How to explore stunning landscapes and vibrant cultures without breaking the bank.",
-"author": "Jessica Lee",
-"date": "Aug 1, 2025"
+"category": "food",
+"tags": ["recipes", "baking"],
+"image": "images/IMG_2079.jpg",
+"alt": "Freshly baked sourdough loaf",
+"title": "It's Christmas Time!",
+"description": "?????????????your own sourdough starter and baking your first loaf.",
+"author": "Eugeanah Thov",
+"date": "Jul 25, 2025"
 }
