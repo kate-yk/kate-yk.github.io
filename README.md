@@ -47,7 +47,9 @@ Follow the steps below to start off.
 2. type-in `./on_venv.sh`
 3. copy and paste `source ../venv/bin/activate && pip install setuptools && clear`
 4. If you can see `(venv)` at the front of your terminal line, you are all set.
-5. Run your python file. `python app.py`
+5. Run your python file. 
+   1. `python server.py JSsasstrap-gyco/` (This is for `localhost` on your computer only.)
+   2. `python server.py --build JSsasstrap-gyco/` (This is for `official website`, you need to rename `build-JSsasstrap-gyco` into `docs`.)
 
 **Note**: when you type-in, you can `tap` so the bash can automatically generate your space (folder) name.
 
