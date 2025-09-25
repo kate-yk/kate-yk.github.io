@@ -214,6 +214,20 @@ export function setupYearElement() {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Setup notification system for links with href="#".
  * Shows a Bootstrap toast notification when such links are clicked.
@@ -313,29 +327,19 @@ export function showNotification(title, message, type = 'info') {
   
   // Determine colors based on type - using your custom green for primary
   let bgColor, textColor;
-  
-  switch(type) {
-    case 'success':
-      bgColor = '#28a745'; // Bootstrap success green
-      textColor = '#ffffff';
-      break;
-    case 'warning':
-      bgColor = '#ffc107'; // Bootstrap warning yellow
-      textColor = '#212529'; // Dark text for light background
-      break;
-    case 'danger':
-      bgColor = '#dc3545'; // Bootstrap danger red
-      textColor = '#ffffff';
-      break;
-    case 'primary':
-      bgColor = '#198754'; // Your custom green from --bs-primary
-      textColor = '#ffffff';
-      break;
-    default: // info
-      bgColor = '#17a2b8'; // Bootstrap info blue
-      textColor = '#ffffff';
-      break;
+
+
+  // Try to get --bs-primary from the document's computed styles
+  let root = document.documentElement;
+  let cssPrimary = getComputedStyle(root).getPropertyValue('--bs-primary').trim();
+  if (cssPrimary) {
+    // If it's a valid color, use it for 'primary' type
+    if (/^#[0-9a-fA-F]{3,8}$|^rgb|^hsl|^[a-zA-Z]+$/.test(cssPrimary)) {
+      bgColor = cssPrimary;
+    }
   }
+  textColor = '#ffffff';
+  
   
   console.log('Notification colors:', { bgColor, textColor, type }); // Debug log
 
