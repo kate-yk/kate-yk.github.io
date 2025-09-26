@@ -1,21 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="/favicon.ico"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="apple-touch-icon" href="/logo192.png"/>
+  <meta charset="utf-8" />
+  <link rel="icon" href="./favicon.ico"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="apple-touch-icon" href="./logo192.png"/>
   <title>GYCO — Articles</title>
 
   <!-- Frameworks -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">   <!-- Normalize browser defaults -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">  <!-- Font Awesome icons -->
+  <!-- Bootstrap core -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link href="/css/custom.css" rel="stylesheet">
 
   <!-- Minimal, focused CSS -->
   <style>
     :root {
-      --accent: #0d6efd;
+      /* --accent: #0d6efd; */
       --bs-primary: var(--accent);
       --bs-primary-rgb: 13, 110, 253;
     }
@@ -147,8 +149,19 @@
     </div>
   </main>
 
+
+
+
+
+
+
+
+
+
+
+  <div id="footer"></div>
   <!-- Footer -->
-  <footer class="bg-white border-top">
+  <!-- <footer class="bg-white border-top">
     <div class="container py-3 d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="small text-muted">© 2025 Greater Youth Collaborative Opus</div>
       <nav aria-label="Footer">
@@ -157,7 +170,7 @@
         <a class="text-decoration-none small" href="/index.html">Privacy Policy</a>
       </nav>
     </div>
-  </footer>
+  </footer> -->
 
   <!-- Modal used by Add an Article (shared) -->
   <div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
@@ -219,7 +232,7 @@
   (function () {
     'use strict';
 
-    const DATA_INDEX = '/content/articles.json'; // expected to be an array of article JSON paths
+    const DATA_INDEX = 'content/articles.json'; // expected to be an array of article JSON paths
     const qs = sel => document.querySelector(sel);
     const qsa = sel => Array.from(document.querySelectorAll(sel));
 
@@ -295,6 +308,22 @@
         trendingList.innerHTML = `<div class="small text-muted">No Trending Yet</div>`;
         return;
       }
+
+
+      
+      // Determine colors based on type - using your custom green for primary
+      let pillColor;
+      // Try to get --bs-primary from the document's computed styles
+      let root = document.documentElement;
+      let cssPrimary = getComputedStyle(root).getPropertyValue('--bs-primary').trim();
+      if (cssPrimary) {
+        // If it's a valid color, use it for 'primary' type
+        if (/^#[0-9a-fA-F]{3,8}$|^rgb|^hsl|^[a-zA-Z]+$/.test(cssPrimary)) {
+          pillColor = cssPrimary;
+        }
+      }
+
+
       const top = arr.filter(x=>x.count>0).slice(0,3);
       trendingList.innerHTML = top.map(t => {
         return `<a href="${escapeAttr(t.url)}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-trend-id="${escapeAttr(t.id)}">
@@ -682,6 +711,7 @@
 
   })();
   </script>
-
+  <!-- loader: relative path, type=module -->
+  <script type="module" src="js/index.js"></script>
 </body>
 </html>
