@@ -1,58 +1,38 @@
-// import initializeController from './pages/index.js';
+// js/index.js
+// Dynamic allocator — chooses ./controller/<pagename>.js based on the HTML file.
+// All constructed paths are relative to this file and do NOT begin with '/'.
 
-// document.addEventListener('DOMContentLoaded', async () => {
-//     await initializeController();
-// });
+function sanitizeName(name) {
+    // allow letters, numbers, dash, underscore only (Regular Expression, regex)
+    return name.replace(/[^a-zA-Z0-9_-]/g, '');
+}
 
-
-
-
-const htmlPath = window.location.pathname;  // "/index.html"
-
-let pagePath = htmlPath === '/' ? '/js/pages/index.js' : `/js/pages${htmlPath.replace('.html', '.js')}`;
-// relative to this file, "/js/index.js"
-
-
-// let pageName = htmlPath.substring(htmlPath.lastIndexOf('/') + 1).replace('.html', '');
-// if (!pageName) pageName = 'index';
-
-// console.log(`htmlPath: ${htmlPath}`);
-// console.log(`pagePath: ${pagePath}`);
-// console.log(`Loading page: ${pageName}`);
-// console.log(`Loading page js: ./pages/${pageName}.js`);
+function pageNameFromPath(pathname) {
+    // e.g. pathname:
+    // "" or "/" -> index
+    // "index.html" -> index
+    // "about.html" -> about
+    // "some" -> some
+    const raw = (pathname || '').split('/').pop() || '';
+    if (!raw) return 'index';
+    const noQuery = raw.split('?')[0].split('#')[0];
+    let name = noQuery.endsWith('.html') ? noQuery.slice(0, -5) : noQuery;
+    name = sanitizeName(name);
+    return name || 'index';
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
+    const pageName = pageNameFromPath(window.location.pathname);
+    const relativePagePath = `./controller/${pageName}.js`; // relative, no leading '/'
     try {
-        const module = await import(`${pagePath}`);
-        if (module.default) {
-            await module.default();
+        const module = await import(relativePagePath);
+        if (module && typeof module.default === 'function') {
+        await module.default(); // page module handles its DOM using core-module
+        } else {
+        console.warn(`Page module loaded but has no default export function: ${relativePagePath}`);
         }
     } catch (err) {
-        console.error(`Failed to load JS for page: ${pagePath}`, err);
+        // Per your request: no 404 fallback. Just log the error.
+        console.error(`Failed to load page module: ${relativePagePath}`, err);
     }
 });
-
-
-
-
-// // src/js/main.js (single entry point for all pages)
-// const htmlPath = window.location.pathname; // e.g., "/index.html" or "/about.html"
-// let pageName = htmlPath.substring(htmlPath.lastIndexOf('/') + 1).replace('.html', '');
-
-// if (!pageName) pageName = 'index'; // fallback for "/"
-
-
-// console.log(`Loading page: ${pageName}`);
-// console.log(`Loading page js: ./pages/${pageName}.js`);
-
-// // dynamically import the corresponding page JS
-// import(`./pages/${pageName}.js`)
-//     .then(module => {
-//         // optionally, if the page module exports an init function, you can call it
-//         if (module.default) {
-//             document.addEventListener('DOMContentLoaded', async () => {
-//                 await module.default();
-//             });
-//         }
-//     })
-//     .catch(err => console.error(`Failed to load JS for page: ${pageName}`, err));
